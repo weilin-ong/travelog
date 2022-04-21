@@ -8,6 +8,7 @@ import Sidebar from './components/Sidebar/Sidebar';
 const libraries = ['places'];
 
 function App() {
+  const [markers, setMarkers] = useState([]);
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
@@ -19,8 +20,8 @@ function App() {
 
   return (
     <main className='main-container'>
-      <Sidebar  />
-      <Map  />
+      <Sidebar markers={markers} />
+      <Map markers={markers} setMarkers={setMarkers} />
     </main>
   );
 }
