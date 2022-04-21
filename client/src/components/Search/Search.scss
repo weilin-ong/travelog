@@ -1,0 +1,56 @@
+.search {
+  position: absolute;
+  top: 3.5rem;
+  left: 60%;
+  transform: translateX(-60%);
+  width: 100%;
+  max-width: 40rem;
+  z-index: 3;
+
+  &-bar {
+    display: flex;
+    gap: 2rem;
+
+    &-container {
+      width: 35rem;
+    }
+
+    input {
+      padding: 1rem;
+      font-size: 1.5rem;
+      width: 100%;
+      border-radius: 5px;
+    }
+    .add-btn {
+      position: absolute;
+      top: 0.4rem;
+      right: 0;
+      cursor: pointer;
+      font-size: 2rem;
+      color: white;
+      width: 4rem;
+      padding: 0.5rem;
+      height: 5vh;
+      border: none;
+      border-radius: 3px;
+      background-color: rgb(3, 47, 54);
+    }
+
+    .add-btn:disabled {
+      background-color: rgb(240, 240, 240);
+      cursor: default;
+    }
+  }
+}
+
+.hide {
+  /* opacity: 0;
+  visibility: hidden; */
+  display: none;
+}
+
+.show {
+  /* opacity: 1;
+  visibility: visible; */
+  display: block;
+}

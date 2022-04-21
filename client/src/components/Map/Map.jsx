@@ -8,6 +8,7 @@ import {
 } from '@react-google-maps/api';
 import { dateFormat } from '../../utils';
 import './Map.scss';
+import Search from '../Search/Search';
 
 
 function Map({ setMarkers, markers }) {
@@ -39,10 +40,14 @@ function Map({ setMarkers, markers }) {
     mapRef.current = map;
   }, []);
 
-
+  const panTo = useCallback(({ lat, lng }) => {
+    mapRef.current.panTo({ lat, lng });
+    mapRef.current.setZoom(14);
+  }, []);
 
   return (
     <section className='map'>
+      <Search panTo={panTo} setMarkers={setMarkers} />
 
 
       <GoogleMap
@@ -53,7 +58,41 @@ function Map({ setMarkers, markers }) {
         options={options}
         onLoad={handleMapLoad}
       >
-
+        {markers.length && (
+          <MarkerClusterer clusterClass='cluster'>
+            {(clusterer) =>
+              markers.map((marker) => (
+                <Marker
+                  key={`${marker.lat}-${marker.lng}`}
+                  position={{ lat: marker.lat, lng: marker.lng }}
+                  clusterer={clusterer}
+                  onClick={() => {
+                    setSelected(marker);
+                  }}
+                />
+              ))
+            }
+          </MarkerClusterer>
+        )}
+        {/* {when user click on pin} */}
+        {/* https://github.com/JustFly1984/react-google-maps-api/issues/new */}
+        {selected ? (
+          <InfoWindow
+            position={{ lat: selected.lat, lng: selected.lng }}
+            onCloseClick={() => {
+              setSelected(null);
+            }}
+          >
+            <div className='info-window'>
+              <span>You visited </span> <h2>{selected.place}</h2>
+              <p>on {dateFormat(selected.date)}</p>
+              <p>Your experience was rated as {selected.rating}</p>
+              {selected?.comment && (
+                <p> Additional comments: {selected.comment}</p>
+              )}
+            </div>
+          </InfoWindow>
+        ) : null}
       </GoogleMap>
     </section>
   );
