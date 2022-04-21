@@ -1,0 +1,52 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  &-header {
+    background-color: #fbf9fa;
+    height: 17.5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &--logo {
+      height: 25rem;
+    }
+  }
+  &-content {
+    background-color: rgb(255, 255, 255);
+    height: 75vh;
+    scroll-behavior: smooth;
+    overflow-y: scroll;
+
+    &--item {
+      display: flex;
+      gap: 4rem;
+      padding: 2rem;
+      border: 1px solid black;
+
+      &--place {
+        font-weight: 700;
+        font-size: 1.6rem;
+      }
+
+      &--date {
+        font-size: 1rem;
+        font-style: italic;
+        align-self: flex-end;
+      }
+    }
+  }
+
+  // &-content::-webkit-scrollbar {
+  //   background: transparent; // manage scrollbar background color here
+  // }
+
+  &-logout {
+    background-color: rgb(255, 85, 119);
+    color: white;
+    height: 7.5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
