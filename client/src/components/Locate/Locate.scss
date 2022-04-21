@@ -1,0 +1,43 @@
+.locate {
+  position: absolute;
+  top: 0rem;
+  right: 0rem;
+  border: none;
+  z-index: 2;
+  background-color: transparent;
+  border-radius: 50rem;
+
+  &-compass {
+    height: 10rem;
+  }
+
+  &-text {
+    position: absolute;
+    padding-top: 2.5rem;
+    height: 5rem;
+    width: 10rem;
+    bottom: -2rem;
+    right: 2rem;
+    visibility: hidden;
+    opacity: 0;
+    font-size: 1.6rem;
+    color: rgb(182, 21, 21);
+    text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+    background-color: rgba(255, 255, 255, 0.842);
+    border-radius: 5px;
+    clip-path: polygon(
+      39% 37%,
+      69% 0,
+      59% 36%,
+      100% 34%,
+      100% 100%,
+      0 100%,
+      0 36%
+    );
+  }
+
+  &:hover .locate-text {
+    visibility: visible;
+    opacity: 1;
+  }
+}

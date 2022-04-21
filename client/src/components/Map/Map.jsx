@@ -9,7 +9,7 @@ import {
 import { dateFormat } from '../../utils';
 import './Map.scss';
 import Search from '../Search/Search';
-
+import Locate from '../Locate/Locate';
 
 function Map({ setMarkers, markers }) {
   const [selected, setSelected] = useState(null);
@@ -48,7 +48,7 @@ function Map({ setMarkers, markers }) {
   return (
     <section className='map'>
       <Search panTo={panTo} setMarkers={setMarkers} />
-
+      <Locate panTo={panTo} />
 
       <GoogleMap
         id='map'

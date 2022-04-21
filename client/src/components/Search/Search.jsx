@@ -17,7 +17,7 @@ import {
 } from '@reach/combobox';
 import '@reach/combobox/styles.css';
 
-
+import Form from '../Form/Form';
 
 function Search({ panTo, setMarkers }) {
   const {
@@ -102,6 +102,15 @@ function Search({ panTo, setMarkers }) {
         )}
       </div>
 
+      {details && (
+        <div className={showForm ? 'show' : 'hide'}>
+          <Form
+            details={details}
+            setMarkers={setMarkers}
+            setShowForm={setShowForm}
+          />
+        </div>
+      )}
     </div>
   );
 }
