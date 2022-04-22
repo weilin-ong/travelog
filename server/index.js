@@ -1,12 +1,13 @@
 const express = require('express');
 const cors = require('cors');
-
+const router = require('./router');
 const PORT = 3001; //react using default 3000
 const hostname = '127.0.0.1';
 
 const app = express();
 
-app.use(cors()).use(express.json());
+app.use(cors()).use(express.json()).use(router);
+
 
 (() => {
   try {
