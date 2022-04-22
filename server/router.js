@@ -1,11 +1,19 @@
 const { Router } = require('express');
 const router = Router();
 
-const { get, post, edit, destroy } = require('./controller/event');
+const { register, login, logout } = require('./controller/user');
 
-router.get('/travker/:id', get);
-router.post('/travker/:id', post);
-router.put('/travker/:id', edit);
-router.delete('/travker/:id', destroy);
+const { addPin, editPin, removePin, getPins } = require('./controller/pins');
+
+//user's authentication
+router.post('/register', register);
+router.post('/login', login);
+router.post('/logout', logout);
+
+//user's pin
+router.get('/pins', getPins);
+router.post('/add', addPin);
+router.put('/edit', editPin);
+router.delete('/remove', removePin);
 
 module.exports = router;
