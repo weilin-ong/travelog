@@ -2,6 +2,9 @@ import { useState } from 'react';
 import './Form.scss';
 import { ReactComponent as Pin } from '../../images/location.svg';
 // import { ReactComponent as Pin2 } from '../../images/pin.svg';
+import { storage } from '../../firebase';
+import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import { v4 as uuidv4 } from 'uuid';
 
 function Form({ details, setMarkers, setShowForm, setDetails }) {
   const [formData, setFormData] = useState({
@@ -9,24 +12,89 @@ function Form({ details, setMarkers, setShowForm, setDetails }) {
     date: '',
     rating: '',
     comment: '',
+    images: {},
   });
+
+  // helper func for upload image
+  async function storeImage(image) {
+    console.log(image);
+    return new Promise((resolve, reject) => {
+      //create unique id to each image
+
+      const metadata = {
+        contentType: 'image/jpeg',
+      };
+      const fileName = `${image.name}-${uuidv4()}`;
+
+      // Upload file and metadata to the object 'images/mountains.jpg'
+      const storageRef = ref(storage, 'images/' + fileName);
+      const uploadTask = uploadBytesResumable(storageRef, image, metadata);
+
+      // Register three observers:
+      // 1. 'state_changed' observer, called any time the state changes
+      // 2. Error observer, called on failure
+      // 3. Completion observer, called on successful completion
+      uploadTask.on(
+        'state_changed',
+        (snapshot) => {
+          // Observe state change events such as progress, pause, and resume
+          // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log('Upload is ' + progress + '% done');
+          // eslint-disable-next-line default-case
+          switch (snapshot.state) {
+            case 'paused':
+              console.log('Upload is paused');
+              break;
+            case 'running':
+              console.log('Upload is running');
+              break;
+          }
+        },
+        (error) => {
+          // Handle unsuccessful uploads
+          reject(error);
+        },
+        () => {
+          // Handle successful uploads on complete
+          // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            resolve(downloadURL);
+          });
+        }
+      );
+    });
+  }
 
   function handleChange(event) {
     const { name, value, files } = event.target;
-    console.log(files);
     setFormData((prevFormData) => {
       return {
         ...prevFormData,
         [name]: value,
-        images: files,
       };
     });
+    if (files) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        images: files,
+      }));
+    }
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
+
+    const { images } = formData;
+    const imgURLs = await Promise.all(
+      [...images].map((image) => storeImage(image))
+    ).catch((error) => console.log(error));
+
+
     const newMarker = {
       ...formData,
+      images: imgURLs,
       place: details.place_name,
       place_id: details.place_id,
       lat: details.coords.lat,
@@ -107,7 +175,7 @@ function Form({ details, setMarkers, setShowForm, setDetails }) {
             id='images'
             onChange={handleChange}
             max='4'
-            accept='.jpg,.png,.jpeg'
+            accept='image/*'
             multiple
             className='form-upload'
           />
