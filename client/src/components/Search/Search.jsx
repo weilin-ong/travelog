@@ -19,7 +19,7 @@ import '@reach/combobox/styles.css';
 
 import Form from '../Form/Form';
 
-function Search({ panTo, setMarkers }) {
+function Search({ panTo, setMarkers, showForm, setShowForm }) {
   const {
     ready,
     value,
@@ -35,7 +35,6 @@ function Search({ panTo, setMarkers }) {
   });
 
   const [details, setDetails] = useState(null);
-  const [showForm, setShowForm] = useState(false);
 
   async function handleOnSelect(address) {
     //set value again and update state to selected add and set 2nd arg "should fetch data" to false

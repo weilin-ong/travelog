@@ -13,6 +13,7 @@ import Locate from '../Locate/Locate';
 
 function Map({ setMarkers, markers }) {
   const [selected, setSelected] = useState(null);
+  const [showForm, setShowForm] = useState(false);
 
   //hard coded KL
   //use Memo to avoid re-rendering
@@ -51,7 +52,12 @@ function Map({ setMarkers, markers }) {
 
   return (
     <section className='map'>
-      <Search panTo={panTo} setMarkers={setMarkers} />
+      <Search
+        showForm={showForm}
+        setShowForm={setShowForm}
+        panTo={panTo}
+        setMarkers={setMarkers}
+      />
       <Locate panTo={panTo} />
 
       <GoogleMap
