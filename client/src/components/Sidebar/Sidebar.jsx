@@ -12,11 +12,8 @@ function Sidebar({ markers }) {
         {markers.length
           ? markers.map((marker) => {
               return (
-                <div className='sidebar-content--item'>
-                  <p className='sidebar-content--item--place'>
-                    {' '}
-                    {marker.place}{' '}
-                  </p>
+                <div key={marker.place_id} className='sidebar-content--item'>
+                  <p className='sidebar-content--item--place'>{marker.place}</p>
                   <p className='sidebar-content--item--date'> {marker.date} </p>
                 </div>
               );

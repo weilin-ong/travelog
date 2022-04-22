@@ -63,8 +63,8 @@ function Search({ panTo, setMarkers }) {
 
   const comboOptionsStyle = {
     padding: '1rem',
-    'line-height': '2rem',
-    'font-size': '1.6rem',
+    lineHeight: '2rem',
+    fontSize: '1.6rem',
   };
 
   return (
@@ -105,6 +105,7 @@ function Search({ panTo, setMarkers }) {
       {details && (
         <div className={showForm ? 'show' : 'hide'}>
           <Form
+            setDetails={setDetails}
             details={details}
             setMarkers={setMarkers}
             setShowForm={setShowForm}

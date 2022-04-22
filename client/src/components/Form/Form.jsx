@@ -3,7 +3,7 @@ import './Form.scss';
 import { ReactComponent as Pin } from '../../images/location.svg';
 // import { ReactComponent as Pin2 } from '../../images/pin.svg';
 
-function Form({ details, setMarkers, setShowForm }) {
+function Form({ details, setMarkers, setShowForm, setDetails }) {
   const [formData, setFormData] = useState({
     place: '',
     date: '',
@@ -12,11 +12,13 @@ function Form({ details, setMarkers, setShowForm }) {
   });
 
   function handleChange(event) {
-    const { name, value } = event.target;
+    const { name, value, files } = event.target;
+    console.log(files);
     setFormData((prevFormData) => {
       return {
         ...prevFormData,
         [name]: value,
+        images: files,
       };
     });
   }
@@ -30,6 +32,7 @@ function Form({ details, setMarkers, setShowForm }) {
       lat: details.coords.lat,
       lng: details.coords.lng,
     };
+    console.log(newMarker);
     setMarkers((prev) => [...prev, newMarker]);
     event.target.reset();
     setShowForm(false);
@@ -37,6 +40,7 @@ function Form({ details, setMarkers, setShowForm }) {
 
   function handleBackClick() {
     setShowForm(false);
+    setDetails(null);
   }
 
   return (
@@ -93,6 +97,21 @@ function Form({ details, setMarkers, setShowForm }) {
           onChange={handleChange}
           autoComplete='off'
         />
+        <div>
+          <label htmlFor='images'>upload your travel photos</label>
+          <br />
+          <br />
+          <input
+            type='file'
+            name='images'
+            id='images'
+            onChange={handleChange}
+            max='4'
+            accept='.jpg,.png,.jpeg'
+            multiple
+            className='form-upload'
+          />
+        </div>
         <button className='form-add-btn'>
           Add <Pin className='add-pin' />
         </button>
