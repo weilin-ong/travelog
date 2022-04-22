@@ -1,8 +1,9 @@
+const User = require('../models/user');
+
 //REGISTER USER
 async function register(req, res) {
   try {
-    console.log('register');
-    const data = req.body;
+    const data = await User.create(req.body);
     res.status(201);
     res.json(data);
   } catch (error) {
@@ -15,7 +16,6 @@ async function register(req, res) {
 //LOGIN USER
 async function login(req, res) {
   try {
-    console.log('login');
     const data = req.body;
     res.status(201);
     res.json(data);
@@ -29,7 +29,6 @@ async function login(req, res) {
 //LOGOUT USER
 async function logout(req, res) {
   try {
-    console.log('logout');
     const data = req.body;
     res.status(201);
     res.json(data);

@@ -1,9 +1,9 @@
 const { Router } = require('express');
 const router = Router();
 
-const { register, login, logout } = require('./controller/user');
+const { register, login, logout } = require('./controllers/user');
 
-const { addPin, editPin, removePin, getPins } = require('./controller/pins');
+const { addPin, editPin, removePin, getPins } = require('./controllers/pins');
 
 //user's authentication
 router.post('/register', register);
