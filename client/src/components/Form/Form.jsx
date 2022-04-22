@@ -26,14 +26,10 @@ function Form({ details, setMarkers, setShowForm, setDetails }) {
       };
       const fileName = `${image.name}-${uuidv4()}`;
 
-      // Upload file and metadata to the object 'images/mountains.jpg'
+      // Upload file and metadata to the object 'images/xxx.jpg'
       const storageRef = ref(storage, 'images/' + fileName);
       const uploadTask = uploadBytesResumable(storageRef, image, metadata);
 
-      // Register three observers:
-      // 1. 'state_changed' observer, called any time the state changes
-      // 2. Error observer, called on failure
-      // 3. Completion observer, called on successful completion
       uploadTask.on(
         'state_changed',
         (snapshot) => {
@@ -90,7 +86,6 @@ function Form({ details, setMarkers, setShowForm, setDetails }) {
     const imgURLs = await Promise.all(
       [...images].map((image) => storeImage(image))
     ).catch((error) => console.log(error));
-
 
     const newMarker = {
       ...formData,

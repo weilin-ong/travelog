@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef, useMemo } from 'react';
+import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 
 import {
   GoogleMap,
@@ -45,6 +45,10 @@ function Map({ setMarkers, markers }) {
     mapRef.current.setZoom(14);
   }, []);
 
+  function handleEditClick(e) {
+    e.preventDefault();
+  }
+
   return (
     <section className='map'>
       <Search panTo={panTo} setMarkers={setMarkers} />
@@ -86,10 +90,29 @@ function Map({ setMarkers, markers }) {
             <div className='info-window'>
               <span>You visited </span> <h2>{selected.place}</h2>
               <p>on {dateFormat(selected.date)}</p>
+              <div className='photos-container'>
+                {selected?.images.map((image, index) => {
+                  return (
+                    <a href={image} className='photos-container--link'>
+                      <div
+                        key={`${image}-${index}`}
+                        className='photos-container--photo'
+                        style={{ backgroundImage: `url(${image})` }}
+                      ></div>
+                    </a>
+                  );
+                })}
+              </div>
               <p>Your experience was rated as {selected.rating}</p>
               {selected?.comment && (
                 <p> Additional comments: {selected.comment}</p>
               )}
+              <button
+                onClick={handleEditClick}
+                className='info-window-edit-btn'
+              >
+                Edit
+              </button>
             </div>
           </InfoWindow>
         ) : null}
