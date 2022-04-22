@@ -13,7 +13,10 @@ import Locate from '../Locate/Locate';
 
 function Map({ setMarkers, markers }) {
   const [selected, setSelected] = useState(null);
+
+  //move from search
   const [showForm, setShowForm] = useState(false);
+  const [details, setDetails] = useState(null);
 
   //hard coded KL
   //use Memo to avoid re-rendering
@@ -47,8 +50,17 @@ function Map({ setMarkers, markers }) {
   }, []);
 
   function handleEditClick(e) {
-    e.preventDefault();
+    if (selected) setDetails(selected);
+
+    setShowForm(true);
+    setSelected(null);
+
   }
+
+  function handleDeletedClick(e) {
+    console.log('deleted');
+  }
+
 
   return (
     <section className='map'>
@@ -57,6 +69,8 @@ function Map({ setMarkers, markers }) {
         setShowForm={setShowForm}
         panTo={panTo}
         setMarkers={setMarkers}
+        setDetails={setDetails}
+        details={details}
       />
       <Locate panTo={panTo} />
 
@@ -94,31 +108,44 @@ function Map({ setMarkers, markers }) {
             }}
           >
             <div className='info-window'>
-              <span>You visited </span> <h2>{selected.place}</h2>
+              <span>You visited </span> <h2>{selected.place_name}</h2>
               <p>on {dateFormat(selected.date)}</p>
-              <div className='photos-container'>
-                {selected?.images.map((image, index) => {
-                  return (
-                    <a href={image} className='photos-container--link'>
-                      <div
+              {selected.images && (
+                <div className='photos-container'>
+                  {selected.images.map((image, index) => {
+                    return (
+                      <a
                         key={`${image}-${index}`}
-                        className='photos-container--photo'
-                        style={{ backgroundImage: `url(${image})` }}
-                      ></div>
-                    </a>
-                  );
-                })}
-              </div>
+                        href={image}
+                        className='photos-container--link'
+                      >
+                        <div
+                          className='photos-container--photo'
+                          style={{ backgroundImage: `url(${image})` }}
+                        ></div>
+                      </a>
+                    );
+                  })}
+                </div>
+              )}
               <p>Your experience was rated as {selected.rating}</p>
               {selected?.comment && (
                 <p> Additional comments: {selected.comment}</p>
               )}
-              <button
-                onClick={handleEditClick}
-                className='info-window-edit-btn'
-              >
-                Edit
-              </button>
+              <div className='info-window-buttons'>
+                <button
+                  onClick={handleEditClick}
+                  className='info-window-edit-btn'
+                >
+                  Edit
+                </button>
+                <button
+                  onClick={handleDeletedClick}
+                  className='info-window-delete-btn'
+                >
+                  Delete
+                </button>
+              </div>
             </div>
           </InfoWindow>
         ) : null}

@@ -7,11 +7,18 @@
   padding: 1rem;
   line-height: 3rem;
 
-  &-edit-btn {
+  &-buttons {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 2rem;
+  }
+
+  &-edit-btn,
+  &-delete-btn {
     cursor: pointer;
     font-size: 1.3rem;
     color: white;
-    width: 6rem;
+    width: 7rem;
     padding: 0.8rem;
     height: 4vh;
     border: none;

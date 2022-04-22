@@ -13,7 +13,7 @@ function Sidebar({ markers }) {
           ? markers.map((marker) => {
               return (
                 <div key={marker.place_id} className='sidebar-content--item'>
-                  <p className='sidebar-content--item--place'>{marker.place}</p>
+                  <p className='sidebar-content--item--place'>{marker.place_name}</p>
                   <p className='sidebar-content--item--date'> {marker.date} </p>
                 </div>
               );

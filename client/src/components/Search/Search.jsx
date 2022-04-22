@@ -19,7 +19,14 @@ import '@reach/combobox/styles.css';
 
 import Form from '../Form/Form';
 
-function Search({ panTo, setMarkers, showForm, setShowForm }) {
+function Search({
+  panTo,
+  setMarkers,
+  showForm,
+  setShowForm,
+  details,
+  setDetails,
+}) {
   const {
     ready,
     value,
@@ -33,8 +40,6 @@ function Search({ panTo, setMarkers, showForm, setShowForm }) {
       radius: 200 * 1000,
     },
   });
-
-  const [details, setDetails] = useState(null);
 
   async function handleOnSelect(address) {
     //set value again and update state to selected add and set 2nd arg "should fetch data" to false
@@ -55,7 +60,7 @@ function Search({ panTo, setMarkers, showForm, setShowForm }) {
     }
   }
 
-  function handleClick(e) {
+  function handleAddClick(e) {
     setShowForm(true);
     setValue('', false);
   }
@@ -95,7 +100,11 @@ function Search({ panTo, setMarkers, showForm, setShowForm }) {
           </ComboboxPopover>
         </Combobox>
         {details && (
-          <button className='add-btn' onClick={handleClick} disabled={showForm}>
+          <button
+            className='add-btn'
+            onClick={handleAddClick}
+            disabled={showForm}
+          >
             +
           </button>
         )}
@@ -108,6 +117,7 @@ function Search({ panTo, setMarkers, showForm, setShowForm }) {
             details={details}
             setMarkers={setMarkers}
             setShowForm={setShowForm}
+            showForm={showForm}
           />
         </div>
       )}

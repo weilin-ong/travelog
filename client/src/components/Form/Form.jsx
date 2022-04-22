@@ -7,17 +7,18 @@ import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
 
 function Form({ details, setMarkers, setShowForm, setDetails }) {
+
+
   const [formData, setFormData] = useState({
-    place: '',
-    date: '',
-    rating: '',
-    comment: '',
-    images: {},
+    place_name: details.place_name ? details.place_name : '',
+    date: details.date ? details.date : '',
+    rating: details.rating ? details.rating : '',
+    comment: details.comment ? details.comment : '',
+    images: details.images ? details.images : '',
   });
 
   // helper func for upload image
   async function storeImage(image) {
-    console.log(image);
     return new Promise((resolve, reject) => {
       //create unique id to each image
 
@@ -83,26 +84,31 @@ function Form({ details, setMarkers, setShowForm, setDetails }) {
     event.preventDefault();
 
     const { images } = formData;
-    const imgURLs = await Promise.all(
-      [...images].map((image) => storeImage(image))
-    ).catch((error) => console.log(error));
+
+    const imgURLs = images
+      ? await Promise.all([...images].map((image) => storeImage(image))).catch(
+          (error) => console.log(error)
+        )
+      : null;
 
     const newMarker = {
       ...formData,
       images: imgURLs,
-      place: details.place_name,
+      place_name: details.place_name,
       place_id: details.place_id,
       lat: details.coords.lat,
       lng: details.coords.lng,
     };
-    console.log(newMarker);
+
     setMarkers((prev) => [...prev, newMarker]);
     event.target.reset();
     setShowForm(false);
+
   }
 
   function handleBackClick() {
     setShowForm(false);
+
     setDetails(null);
   }
 
@@ -118,9 +124,9 @@ function Form({ details, setMarkers, setShowForm, setDetails }) {
       <form className='form' onSubmit={handleSubmit}>
         <input
           type='text'
-          name='place'
+          name='place_name'
           value={details.place_name}
-          onChange={handleChange}
+          readOnly={true}
           required={true}
           autoComplete='off'
         />
@@ -128,6 +134,7 @@ function Form({ details, setMarkers, setShowForm, setDetails }) {
           type='date'
           name='date'
           onChange={handleChange}
+          value={formData.date}
           required={true}
         />
         <div>
@@ -139,6 +146,7 @@ function Form({ details, setMarkers, setShowForm, setDetails }) {
             name='rating'
             onChange={handleChange}
             required={true}
+            value={formData.rating}
           >
             <option value='-'>-- Rate 1 to 10 --</option>
             <option value='10'>10 Perfect</option>
