@@ -30,11 +30,10 @@ function Register() {
 
   return (
     <section className='register-container'>
-      <h1>new account</h1>
+      <h1 className='register-title'>new account</h1>
       <form className='register-form' onSubmit={handleSubmit}>
         <input
           type='email'
-          className='register-form--email'
           name='email'
           placeholder='Email'
           autoFocus
@@ -52,7 +51,6 @@ function Register() {
         />
         <input
           type='password'
-          className='register-form--password'
           name='password'
           placeholder='Password'
           autoComplete='off'

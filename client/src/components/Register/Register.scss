@@ -1,6 +1,5 @@
 .register-container {
   background-image: url('../../images/homepage.svg');
-
   background-position: center;
   display: flex;
   flex-direction: column;
@@ -9,7 +8,7 @@
   height: 100vh;
   gap: 10rem;
 
-  h1 {
+  .register-title {
     font-weight: 800;
     font-size: 5rem;
     text-transform: uppercase;
