@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import './Register.scss'
+import React, { useState } from 'react';
+import './Register.scss';
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -25,7 +25,6 @@ function Register() {
   function handleSubmit(e) {
     e.preventDefault();
     console.log(formData);
-  
   }
 
   return (
