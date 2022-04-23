@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Homepage.scss';
-import { ReactComponent as Logo } from '../../images/home-logo-black.svg';
+import { ReactComponent as Logo } from '../../images/home-logo.svg';
 
 function Homepage() {
   return (
