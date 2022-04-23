@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import './Login.scss'
+import './Login.scss';
+import { toast } from 'react-toastify';
 
 function Login() {
   const [formData, setFormData] = useState({
