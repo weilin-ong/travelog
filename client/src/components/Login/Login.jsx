@@ -1,13 +1,17 @@
 import { useState } from 'react';
 import './Login.scss';
 import { toast } from 'react-toastify';
+import { login } from '../api-service';
+import { useNavigate } from 'react-router-dom';
 
+const initialState = {
+  email: '',
+  password: '',
+};
 
 function Login() {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
+  const [formData, setFormData] = useState(initialState);
+  const navigate = useNavigate();
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -19,9 +23,17 @@ function Login() {
     });
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    console.log(formData);
+    const res = await login(formData);
+    if (res.error) {
+      toast(`${res.message}`);
+      setFormData(initialState);
+    } else {
+      const { token } = res;
+      localStorage.setItem('token', token);
+      navigate('/map');
+    }
   }
 
   return (
