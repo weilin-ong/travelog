@@ -5,6 +5,7 @@ import { storage } from '../../firebase';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
 import { addPin, editPin } from '../api-service';
+import { toast } from 'react-toastify';
 
 function Form({ details, setMarkers, setShowForm, setDetails, setEdit, edit }) {
   const [formData, setFormData] = useState({
@@ -83,18 +84,20 @@ function Form({ details, setMarkers, setShowForm, setDetails, setEdit, edit }) {
 
     const { images } = formData;
 
+    if(images) toast('Photo upload might take awhile...')
+
     const imgURLs = images
       ? await Promise.all([...images].map((image) => storeImage(image))).catch(
           (error) => console.log(error)
         )
       : null;
-    console.log(details);
+ 
     const newMarker = {
       ...formData,
       images: imgURLs,
       place_name: details.place_name,
       place_id: details.place_id,
-      lat:  details.lat,
+      lat: details.lat,
       lng: details.lng,
     };
 
@@ -102,29 +105,36 @@ function Form({ details, setMarkers, setShowForm, setDetails, setEdit, edit }) {
 
     //if edit state is false
     if (!edit) {
-      addPin(token, newMarker).then((newPin) =>
+      const newPin = await addPin(token, newMarker);
+
+      if (newPin.error) {
+        toast(newPin.message);
+      } else {
         setMarkers((prev) => {
           console.log(newPin);
           const filteredPins = prev.filter(
             (pin) => pin.place_id !== newPin.place_id
           );
           return [...filteredPins, newPin];
-        })
-      );
+        });
+      }
     } else {
       setEdit(false);
-      editPin(token, newMarker).then((editedPin) =>
+      const editedPin = editPin(token, newMarker);
+      if (editPin.error) {
+        toast(editPin.message);
+      } else {
         setMarkers((prev) => {
           console.log(editedPin);
           const filteredPins = prev.filter(
             (pin) => pin.place_id !== editedPin.place_id
           );
           return [...filteredPins, editedPin];
-        })
-      );
+        });
+      }
     }
 
-    // setMarkers((prev) => [...prev, newMarker]);
+ 
     event.target.reset();
     setShowForm(false);
     setDetails(null);

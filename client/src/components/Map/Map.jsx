@@ -10,6 +10,8 @@ import { dateFormat } from '../../utils';
 import './Map.scss';
 import Search from '../Search/Search';
 import Locate from '../Locate/Locate';
+import { deletePin } from '../api-service';
+import { toast } from 'react-toastify';
 
 function Map({ setMarkers, markers }) {
   const [selected, setSelected] = useState(null);
@@ -58,12 +60,20 @@ function Map({ setMarkers, markers }) {
     setSelected(null);
   }
 
-  function handleDeletedClick(e) {
-    setMarkers((prevMarkers) => {
-      return prevMarkers.filter((marker) => {
-        return marker.place_id !== selected.place_id;
+  async function handleDeletedClick(e) {
+    const token = localStorage.getItem('token');
+    const deletedPin = await deletePin(token, selected);
+
+    if (deletedPin.error) {
+      toast(deletedPin.message);
+    } else {
+      setMarkers((prevMarkers) => {
+        return prevMarkers.filter((marker) => {
+          return marker.place_id !== deletedPin.place_id;
+        });
       });
-    });
+    }
+
     setSelected(null);
   }
 

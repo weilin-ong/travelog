@@ -27,10 +27,11 @@ function Login() {
     e.preventDefault();
     const res = await login(formData);
     if (res.error) {
-      toast(`${res.message}`);
+      toast(res.message);
       setFormData(initialState);
     } else {
-      const { token } = res;
+      const { token, username } = res;
+       toast(`Lovely to see you here, ${username}!`);
       localStorage.setItem('token', token);
       navigate('/map');
     }

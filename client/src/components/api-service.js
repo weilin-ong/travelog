@@ -92,7 +92,7 @@ export function editPin(token, pin) {
 //delete pin
 export function deletePin(token, pin) {
   return fetch(`${baseURL}/remove`, {
-    method: 'PUT',
+    method: 'DELETE',
     credentials: 'include',
     mode: 'cors',
     headers: {

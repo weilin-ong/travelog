@@ -31,7 +31,8 @@ function Register() {
       toast(`${res.message}`);
       setFormData(initialState);
     } else {
-      const { token } = res;
+      const { token, username } = res;
+      toast(`Lovely to see you here, ${username}!`);
       localStorage.setItem('token', token);
       navigate('/map');
     }

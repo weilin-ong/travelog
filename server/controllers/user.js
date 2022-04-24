@@ -26,15 +26,16 @@ async function register(req, res) {
     const hash = await bcrypt.hash(password, salt);
 
     //create new user
-    const { _id } = await User.create({
+    const user = await User.create({
       ...req.body,
       password: hash,
     });
 
     //if successfully created user
-    if (_id) {
+    if (user) {
       return res.status(201).json({
-        token: jwt.sign({ _id }, SECRET_KEY, { expiresIn: '30d' }), //payload must be plain obj
+        token: jwt.sign({ _id:user._id }, SECRET_KEY, { expiresIn: '30d' }), //payload must be plain obj
+        username:user._id,
       });
     } else {
       return res
@@ -57,6 +58,7 @@ async function login(req, res) {
     if (user && (await bcrypt.compare(password, user.password))) {
       return res.status(201).send({
         token: jwt.sign({ _id: user._id }, SECRET_KEY, { expiresIn: '30d' }),
+        username: user.username,
       });
     } else {
       return res.status(401).send({

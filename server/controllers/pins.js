@@ -15,7 +15,6 @@ async function getPins(req, res) {
 async function addPin(req, res) {
   try {
     const { place_id, place_name, date, rating, lat, lng } = req.body;
-    console.log(req.body);
 
     //if pin exists
     if (req.user.pins.find((pin) => pin.place_id === place_id)) {
