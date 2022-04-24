@@ -54,13 +54,16 @@ function Map({ setMarkers, markers }) {
 
     setShowForm(true);
     setSelected(null);
-
   }
 
   function handleDeletedClick(e) {
-    console.log('deleted');
+    setMarkers((prevMarkers) => {
+      return prevMarkers.filter((marker) => {
+        return marker.place_id !== selected.place_id;
+      });
+    });
+    setSelected(null);
   }
-
 
   return (
     <section className='map'>

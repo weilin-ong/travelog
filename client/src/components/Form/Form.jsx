@@ -1,14 +1,11 @@
 import { useState } from 'react';
 import './Form.scss';
 import { ReactComponent as Pin } from '../../images/location.svg';
-// import { ReactComponent as Pin2 } from '../../images/pin.svg';
 import { storage } from '../../firebase';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
 
 function Form({ details, setMarkers, setShowForm, setDetails }) {
-
-
   const [formData, setFormData] = useState({
     place_name: details.place_name ? details.place_name : '',
     date: details.date ? details.date : '',
@@ -103,12 +100,11 @@ function Form({ details, setMarkers, setShowForm, setDetails }) {
     setMarkers((prev) => [...prev, newMarker]);
     event.target.reset();
     setShowForm(false);
-
+    setDetails(null);
   }
 
   function handleBackClick() {
     setShowForm(false);
-
     setDetails(null);
   }
 
@@ -148,7 +144,6 @@ function Form({ details, setMarkers, setShowForm, setDetails }) {
             required={true}
             value={formData.rating}
           >
-            <option value='-'>-- Rate 1 to 10 --</option>
             <option value='10'>10 Perfect</option>
             <option value='9'>9 Superb</option>
             <option value='8'>8 Great</option>
