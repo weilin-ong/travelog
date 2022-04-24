@@ -1,14 +1,21 @@
 import './Dashboard.scss';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLoadScript } from '@react-google-maps/api';
 import Map from '../Map/Map';
 import Sidebar from '../Sidebar/Sidebar';
+
+import { getPins } from '../api-service';
 
 //declare outside to avoid re-render
 const libraries = ['places'];
 
 function Dashboard() {
   const [markers, setMarkers] = useState([]);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    getPins(token).then((pins) => setMarkers(pins));
+  }, []);
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
