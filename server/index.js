@@ -7,8 +7,12 @@ const { connectDB } = require('./models/index');
 const hostname = '127.0.0.1';
 
 const app = express();
+const corsConfig = {
+  origin: 'http://localhost:3000',
+  credentials: true,
+};
 
-app.use(cors()).use(express.json()).use(router);
+app.use(cors(corsConfig)).use(express.json()).use(router);
 
 (() => {
   try {

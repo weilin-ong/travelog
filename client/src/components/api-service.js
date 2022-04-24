@@ -1,8 +1,8 @@
-const baseURL = process.env.SERVER_BASE_URL;
+const baseURL = process.env.REACT_APP_SERVER_BASE_URL;
 
 //register
 export function register(user) {
-  return fetch(`${baseURL}/login`, {
+  return fetch(`${baseURL}/register`, {
     method: 'POST',
     credentials: 'include',
     mode: 'cors',
@@ -44,7 +44,7 @@ export function logout(token) {
 
 //get pins
 export function getPins(token) {
-  return fetch(`${baseURL}/login`, {
+  return fetch(`${baseURL}/me`, {
     method: 'GET',
     credentials: 'include',
     mode: 'cors',
@@ -59,7 +59,7 @@ export function getPins(token) {
 
 //add pin
 export function addPin(token, pin) {
-  return fetch(`${baseURL}/login`, {
+  return fetch(`${baseURL}/add`, {
     method: 'POST',
     credentials: 'include',
     mode: 'cors',
@@ -75,7 +75,7 @@ export function addPin(token, pin) {
 
 //edit pin
 export function editPin(token, pin) {
-  return fetch(`${baseURL}/login`, {
+  return fetch(`${baseURL}/edit`, {
     method: 'PUT',
     credentials: 'include',
     mode: 'cors',
@@ -91,7 +91,7 @@ export function editPin(token, pin) {
 
 //delete pin
 export function deletePin(token, pin) {
-  return fetch(`${baseURL}/login`, {
+  return fetch(`${baseURL}/remove`, {
     method: 'PUT',
     credentials: 'include',
     mode: 'cors',

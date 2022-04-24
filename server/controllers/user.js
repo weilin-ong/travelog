@@ -12,14 +12,14 @@ async function register(req, res) {
     if (!username || !email || !password) {
       return res
         .status(400)
-        .send({ error: '400', message: 'Please include all fields' });
+        .json({ error: '400', message: 'Please include all fields' });
     }
     //if user exists
     const existedUser = await User.findOne({ email });
     if (existedUser)
       return res
         .status(409)
-        .send({ error: '409', message: 'User already exists' });
+        .json({ error: '409', message: 'User already exists' });
 
     //hash password
     const salt = await bcrypt.genSalt(10);
@@ -33,13 +33,13 @@ async function register(req, res) {
 
     //if successfully created user
     if (_id) {
-      return res.status(201).send({
+      return res.status(201).json({
         token: jwt.sign({ _id }, SECRET_KEY, { expiresIn: '30d' }), //payload must be plain obj
       });
     } else {
       return res
         .status(400)
-        .send({ error: '400', message: 'Could not create user' });
+        .json({ error: '400', message: 'Could not create user' });
     }
   } catch (error) {
     console.log(error);

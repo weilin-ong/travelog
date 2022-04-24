@@ -1,20 +1,22 @@
 import React, { useState } from 'react';
 import './Register.scss';
+import { register } from '../api-service';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+
+const initialState = {
+  username: '',
+  email: '',
+  password: '',
+};
 
 function Register() {
-  const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    password: '',
-  });
+  const [formData, setFormData] = useState(initialState);
+  const navigate = useNavigate();
 
   function handleChange(e) {
     const { name, value } = e.target;
     setFormData((prev) => {
-      // console.log({
-      //   ...prev,
-      //   [name]: value,
-      // });
       return {
         ...prev,
         [name]: value,
@@ -22,9 +24,22 @@ function Register() {
     });
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    console.log(formData);
+    const res = await register(formData);
+    console.log(res);
+    if (res.error) {
+      toast(`${res.message}`);
+      setFormData(initialState);
+    } else {
+      const { token } = res;
+      localStorage.setItem('token', token);
+      navigate('/map');
+    }
+  }
+
+  function validation() {
+    return !formData.email || !formData.password || !formData.username;
   }
 
   return (
@@ -57,7 +72,9 @@ function Register() {
           onChange={handleChange}
           value={formData.password}
         />
-        <button className='register-form--btn'>register</button>
+        <button className='register-form--btn' disabled={validation()}>
+          register
+        </button>
       </form>
     </section>
   );

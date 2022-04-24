@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './Login.scss';
 import { toast } from 'react-toastify';
 
+
 function Login() {
   const [formData, setFormData] = useState({
     email: '',
@@ -11,10 +12,6 @@ function Login() {
   function handleChange(e) {
     const { name, value } = e.target;
     setFormData((prev) => {
-      // console.log({
-      //   ...prev,
-      //   [name]: value,
-      // });
       return {
         ...prev,
         [name]: value,
