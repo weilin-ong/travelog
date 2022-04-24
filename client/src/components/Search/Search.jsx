@@ -26,6 +26,8 @@ function Search({
   setShowForm,
   details,
   setDetails,
+  setEdit,
+  edit,
 }) {
   const {
     ready,
@@ -54,7 +56,7 @@ function Search({
       const { place_id } = result;
       const details = await getDetails({ placeId: place_id });
 
-      setDetails({ place_name: details.name, place_id, coords: { lat, lng } });
+      setDetails({ place_name: details.name, place_id,  lat, lng  });
     } catch (error) {
       console.log(error);
     }
@@ -118,6 +120,8 @@ function Search({
             setMarkers={setMarkers}
             setShowForm={setShowForm}
             showForm={showForm}
+            setEdit={setEdit}
+            edit={edit}
           />
         </div>
       )}

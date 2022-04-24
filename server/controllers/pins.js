@@ -15,6 +15,7 @@ async function getPins(req, res) {
 async function addPin(req, res) {
   try {
     const { place_id, place_name, date, rating, lat, lng } = req.body;
+    console.log(req.body);
 
     //if pin exists
     if (req.user.pins.find((pin) => pin.place_id === place_id)) {
@@ -58,9 +59,7 @@ async function editPin(req, res) {
         .send({ error: '400', message: 'Please include all fields' });
     }
 
-    const newPins = req.user.pins.filter(
-      (pin) => pin.place_id !== place_id
-    );
+    const newPins = req.user.pins.filter((pin) => pin.place_id !== place_id);
 
     await User.findByIdAndUpdate(
       req.user._id,
@@ -77,8 +76,7 @@ async function editPin(req, res) {
 
 //REMOVE A PIN
 async function removePin(req, res) {
-
-   const { place_id} = req.body;
+  const { place_id } = req.body;
 
   //if pin not found
   if (!req.user.pins.find((pin) => pin.place_id === place_id)) {
@@ -86,9 +84,7 @@ async function removePin(req, res) {
   }
 
   try {
-    const newPins = req.user.pins.filter(
-      (pin) => pin.place_id !== place_id
-    );
+    const newPins = req.user.pins.filter((pin) => pin.place_id !== place_id);
     await User.findByIdAndUpdate(
       req.user._id,
       { pins: newPins },

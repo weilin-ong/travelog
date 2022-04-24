@@ -18,6 +18,8 @@ function Map({ setMarkers, markers }) {
   const [showForm, setShowForm] = useState(false);
   const [details, setDetails] = useState(null);
 
+  const [edit, setEdit] = useState(false);
+
   //hard coded KL
   //use Memo to avoid re-rendering
   const center = useMemo(
@@ -50,8 +52,8 @@ function Map({ setMarkers, markers }) {
   }, []);
 
   function handleEditClick(e) {
+    setEdit(true);
     if (selected) setDetails(selected);
-
     setShowForm(true);
     setSelected(null);
   }
@@ -74,6 +76,8 @@ function Map({ setMarkers, markers }) {
         setMarkers={setMarkers}
         setDetails={setDetails}
         details={details}
+        setEdit={setEdit}
+        edit={edit}
       />
       <Locate panTo={panTo} />
 

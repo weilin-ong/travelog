@@ -5,6 +5,7 @@ import Map from '../Map/Map';
 import Sidebar from '../Sidebar/Sidebar';
 
 import { getPins } from '../api-service';
+import { toast } from 'react-toastify';
 
 //declare outside to avoid re-render
 const libraries = ['places'];
@@ -14,7 +15,17 @@ function Dashboard() {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    getPins(token).then((pins) => setMarkers(pins));
+    const getUserPins = async (token) => {
+      const userPins = await getPins(token);
+
+      if (userPins.error) {
+        toast(`${userPins.message}`);
+      } else if (Array.isArray(userPins)) {
+        setMarkers(userPins);
+      }
+    };
+
+    getUserPins(token);
   }, []);
 
   const { isLoaded, loadError } = useLoadScript({

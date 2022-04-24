@@ -4,8 +4,9 @@ import { ReactComponent as Pin } from '../../images/location.svg';
 import { storage } from '../../firebase';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
+import { addPin, editPin } from '../api-service';
 
-function Form({ details, setMarkers, setShowForm, setDetails }) {
+function Form({ details, setMarkers, setShowForm, setDetails, setEdit, edit }) {
   const [formData, setFormData] = useState({
     place_name: details.place_name ? details.place_name : '',
     date: details.date ? details.date : '',
@@ -87,17 +88,43 @@ function Form({ details, setMarkers, setShowForm, setDetails }) {
           (error) => console.log(error)
         )
       : null;
-
+    console.log(details);
     const newMarker = {
       ...formData,
       images: imgURLs,
       place_name: details.place_name,
       place_id: details.place_id,
-      lat: details.coords.lat,
-      lng: details.coords.lng,
+      lat:  details.lat,
+      lng: details.lng,
     };
 
-    setMarkers((prev) => [...prev, newMarker]);
+    const token = localStorage.getItem('token');
+
+    //if edit state is false
+    if (!edit) {
+      addPin(token, newMarker).then((newPin) =>
+        setMarkers((prev) => {
+          console.log(newPin);
+          const filteredPins = prev.filter(
+            (pin) => pin.place_id !== newPin.place_id
+          );
+          return [...filteredPins, newPin];
+        })
+      );
+    } else {
+      setEdit(false);
+      editPin(token, newMarker).then((editedPin) =>
+        setMarkers((prev) => {
+          console.log(editedPin);
+          const filteredPins = prev.filter(
+            (pin) => pin.place_id !== editedPin.place_id
+          );
+          return [...filteredPins, editedPin];
+        })
+      );
+    }
+
+    // setMarkers((prev) => [...prev, newMarker]);
     event.target.reset();
     setShowForm(false);
     setDetails(null);
@@ -144,6 +171,9 @@ function Form({ details, setMarkers, setShowForm, setDetails }) {
             required={true}
             value={formData.rating}
           >
+            <option value='' disabled hidden>
+              Rate 1 to 10
+            </option>
             <option value='10'>10 Perfect</option>
             <option value='9'>9 Superb</option>
             <option value='8'>8 Great</option>
