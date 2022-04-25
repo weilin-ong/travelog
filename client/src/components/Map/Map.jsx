@@ -10,7 +10,7 @@ import { dateFormat } from '../../utils';
 import './Map.scss';
 import Search from '../Search/Search';
 import Locate from '../Locate/Locate';
-import { deletePin } from '../api-service';
+import { deletePin } from '../../service/api-service';
 import { toast } from 'react-toastify';
 
 function Map({ setMarkers, markers }) {

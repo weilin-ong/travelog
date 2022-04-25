@@ -4,7 +4,7 @@ import { ReactComponent as Pin } from '../../images/location.svg';
 import { storage } from '../../firebase';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
-import { addPin, editPin } from '../api-service';
+import { addPin, editPin } from '../../service/api-service';
 import { toast } from 'react-toastify';
 
 function Form({ details, setMarkers, setShowForm, setDetails, setEdit, edit }) {

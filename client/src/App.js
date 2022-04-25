@@ -1,10 +1,11 @@
 import './App.scss';
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Homepage from './components/Homepage/Homepage';
-import Login from './components/Login/Login';
-import Register from './components/Register/Register';
-import Dashboard from './components/Dashboard/Dashboard';
+import Homepage from './pages/Homepage/Homepage';
+import Login from './pages/Login/Login';
+import Register from './pages/Register/Register';
+import Dashboard from './pages/Dashboard/Dashboard';
+import PageNotFound from './pages/PageNotFound/PageNotFound';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -18,6 +19,7 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route path='/map' element={<Dashboard />} />
+          <Route path='*' element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
       <ToastContainer

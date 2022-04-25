@@ -1,7 +1,7 @@
 import React from 'react';
 import './Sidebar.scss';
 import { ReactComponent as Logo } from '../../images/logo.svg';
-import { logout } from '../api-service';
+import { logout } from '../../service/api-service';
 import { useNavigate } from 'react-router-dom';
 
 function Sidebar({ markers, user }) {

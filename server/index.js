@@ -12,9 +12,15 @@ const corsConfig = {
   credentials: true,
 };
 
-app.use(cors(corsConfig)).use(express.json()).use(router);
-
-(() => {
+app
+  .use(cors(corsConfig))
+  .use(express.json())
+  .use(router)
+  .get('*', (req, res) => {
+    res.status(404).send('Sorry, page not found');
+  });
+  
+  (() => {
   try {
     connectDB();
     app.listen(PORT, () => {

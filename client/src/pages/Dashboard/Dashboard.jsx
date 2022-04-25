@@ -1,10 +1,10 @@
 import './Dashboard.scss';
 import { useEffect, useState } from 'react';
 import { useLoadScript } from '@react-google-maps/api';
-import Map from '../Map/Map';
-import Sidebar from '../Sidebar/Sidebar';
+import Map from '../../components/Map/Map';
+import Sidebar from '../../components/Sidebar/Sidebar';
 
-import { getPins } from '../api-service';
+import { getPins } from '../../service/api-service';
 import { toast } from 'react-toastify';
 
 import { useNavigate } from 'react-router-dom';

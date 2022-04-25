@@ -1,16 +1,15 @@
-import React, { useState } from 'react';
-import './Register.scss';
-import { register } from '../api-service';
+import { useState } from 'react';
+import './Login.scss';
 import { toast } from 'react-toastify';
+import { login } from '../../service/api-service';
 import { Link, useNavigate } from 'react-router-dom';
 
 const initialState = {
-  username: '',
   email: '',
   password: '',
 };
 
-function Register() {
+function Login() {
   const [formData, setFormData] = useState(initialState);
   const navigate = useNavigate();
 
@@ -26,9 +25,9 @@ function Register() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const res = await register(formData);
+    const res = await login(formData);
     if (res.error) {
-      toast(`${res.message}`);
+      toast(res.message);
       setFormData(initialState);
     } else {
       const { token, username } = res;
@@ -38,47 +37,33 @@ function Register() {
     }
   }
 
-  function validation() {
-    return !formData.email || !formData.password || !formData.username;
-  }
-
   return (
-    <section className='register-container'>
-      <h1 className='register-title'>new account</h1>
-      <form className='register-form' onSubmit={handleSubmit}>
+    <section className='login-container'>
+      <h1 className='login-title'> welcome back</h1>
+      <form className='login-form' onSubmit={handleSubmit}>
         <input
           type='email'
+          onChange={handleChange}
+          value={formData.email}
           name='email'
           placeholder='Email'
           autoFocus
           required
-          onChange={handleChange}
-          value={formData.email}
-        />
-        <input
-          type='text'
-          name='username'
-          placeholder='Username'
-          required
-          onChange={handleChange}
-          value={formData.username}
         />
         <input
           type='password'
+          onChange={handleChange}
+          value={formData.password}
           name='password'
           placeholder='Password'
           autoComplete='off'
           required
-          onChange={handleChange}
-          value={formData.password}
         />
-        <button className='register-form--btn' disabled={validation()}>
-          register
-        </button>
+        <button className='login-form--btn'>login</button>
       </form>
-      <p className='login-link'>
-        Have an account with us? Login{' '}
-        <Link style={{ textDecoration: 'underline' }} to='/login'>
+      <p className='register-link'>
+        New to Travker? Register{' '}
+        <Link style={{ textDecoration: 'underline' }} to='/register'>
           here
         </Link>
       </p>
@@ -86,4 +71,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default Login;
