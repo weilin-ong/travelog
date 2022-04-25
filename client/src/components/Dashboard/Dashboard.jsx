@@ -7,11 +7,16 @@ import Sidebar from '../Sidebar/Sidebar';
 import { getPins } from '../api-service';
 import { toast } from 'react-toastify';
 
+import { useNavigate } from 'react-router-dom';
+
 //declare outside to avoid re-render
 const libraries = ['places'];
 
 function Dashboard() {
   const [markers, setMarkers] = useState([]);
+  const [user, setUser] = useState(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -20,13 +25,15 @@ function Dashboard() {
 
       if (userPins.error) {
         toast(`${userPins.message}`);
-      } else if (Array.isArray(userPins)) {
-        setMarkers(userPins);
+        navigate('/');
+      } else if (Array.isArray(userPins.pins)) {
+        setMarkers(userPins.pins);
+        setUser(userPins.username);
       }
     };
 
     getUserPins(token);
-  }, []);
+  }, [navigate]);
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
@@ -38,7 +45,7 @@ function Dashboard() {
 
   return (
     <main className='main-container'>
-      <Sidebar markers={markers} />
+      <Sidebar markers={markers} user={user} />
       <Map markers={markers} setMarkers={setMarkers} />
     </main>
   );

@@ -3,18 +3,26 @@
   flex-direction: column;
   &-header {
     background-color: #fbf9fa;
-    height: 17.5vh;
+    height: 13vh;
     display: flex;
-    justify-content: center;
     align-items: center;
 
+    &--title {
+      text-transform: uppercase;
+      text-align: center;
+      padding-right: 1rem;
+      color: rgb(36, 102, 141);
+      font-size: 2.5rem;
+    }
+
     &--logo {
-      height: 25rem;
+      height: 12rem;
+      width: 12rem;
     }
   }
   &-content {
     background-color: rgb(255, 255, 255);
-    height: 75vh;
+    height: 82vh;
     scroll-behavior: smooth;
     overflow-y: scroll;
 
@@ -47,9 +55,10 @@
     font-weight: 400;
     font-size: 1.8rem;
     color: white;
-    height: 7.5vh;
+    height: 5vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    border: none;
   }
 }

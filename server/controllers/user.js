@@ -34,8 +34,8 @@ async function register(req, res) {
     //if successfully created user
     if (user) {
       return res.status(201).json({
-        token: jwt.sign({ _id:user._id }, SECRET_KEY, { expiresIn: '30d' }), //payload must be plain obj
-        username:user._id,
+        token: jwt.sign({ _id: user._id }, SECRET_KEY, { expiresIn: '30d' }), //payload must be plain obj
+        username: user.username,
       });
     } else {
       return res
@@ -72,16 +72,4 @@ async function login(req, res) {
   }
 }
 
-//LOGOUT USER
-async function logout(req, res) {
-  try {
-    const data = req.body;
-    res.status(201);
-    res.json(data);
-  } catch (error) {
-    console.log(error);
-    res.sendStatus(500);
-  }
-}
-
-module.exports = { register, login, logout };
+module.exports = { register, login };

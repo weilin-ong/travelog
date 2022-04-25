@@ -41,10 +41,10 @@ function Form({ details, setMarkers, setShowForm, setDetails, setEdit, edit }) {
           // eslint-disable-next-line default-case
           switch (snapshot.state) {
             case 'paused':
-              console.log('Upload is paused');
+              toast('Upload is paused');
               break;
             case 'running':
-              console.log('Upload is running');
+              toast('Upload is running');
               break;
           }
         },
@@ -84,14 +84,14 @@ function Form({ details, setMarkers, setShowForm, setDetails, setEdit, edit }) {
 
     const { images } = formData;
 
-    if(images) toast('Photo upload might take awhile...')
+    if (images) toast('Photo upload might take awhile...');
 
     const imgURLs = images
       ? await Promise.all([...images].map((image) => storeImage(image))).catch(
           (error) => console.log(error)
         )
       : null;
- 
+
     const newMarker = {
       ...formData,
       images: imgURLs,
@@ -111,7 +111,6 @@ function Form({ details, setMarkers, setShowForm, setDetails, setEdit, edit }) {
         toast(newPin.message);
       } else {
         setMarkers((prev) => {
-          console.log(newPin);
           const filteredPins = prev.filter(
             (pin) => pin.place_id !== newPin.place_id
           );
@@ -120,12 +119,11 @@ function Form({ details, setMarkers, setShowForm, setDetails, setEdit, edit }) {
       }
     } else {
       setEdit(false);
-      const editedPin = editPin(token, newMarker);
+      const editedPin = await editPin(token, newMarker);
       if (editPin.error) {
         toast(editPin.message);
       } else {
         setMarkers((prev) => {
-          console.log(editedPin);
           const filteredPins = prev.filter(
             (pin) => pin.place_id !== editedPin.place_id
           );
@@ -134,7 +132,6 @@ function Form({ details, setMarkers, setShowForm, setDetails, setEdit, edit }) {
       }
     }
 
- 
     event.target.reset();
     setShowForm(false);
     setDetails(null);
@@ -202,6 +199,7 @@ function Form({ details, setMarkers, setShowForm, setDetails, setEdit, edit }) {
           placeholder='additional comment'
           onChange={handleChange}
           autoComplete='off'
+          value={formData.comment}
         />
         <div>
           <label htmlFor='images'>upload your travel photos</label>

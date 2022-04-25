@@ -4,7 +4,7 @@ const User = require('../models/user');
 async function getPins(req, res) {
   try {
     res.status(200);
-    res.json(req.user.pins);
+    res.json({ pins: req.user.pins, username: req.user.username });
   } catch (error) {
     console.log(error);
     res.status(500).send({ error: '500', message: 'Could not get pins' });

@@ -29,17 +29,6 @@ export function login(user) {
 //logout
 export function logout(token) {
   localStorage.removeItem(token);
-  return fetch(`${baseURL}/logout`, {
-    method: 'POST',
-    credentials: 'include',
-    mode: 'cors',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-  })
-    .then((res) => res.json())
-    .catch((err) => console.log(err));
 }
 
 //get pins

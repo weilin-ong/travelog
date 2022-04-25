@@ -1,26 +1,40 @@
 import React from 'react';
 import './Sidebar.scss';
-import logo from '../../images/logo.png';
+import { ReactComponent as Logo } from '../../images/logo.svg';
+import { logout } from '../api-service';
+import { useNavigate } from 'react-router-dom';
 
-function Sidebar({ markers }) {
+function Sidebar({ markers, user }) {
+  const navigate = useNavigate();
+
+  function removeToken() {
+    logout('token');
+    navigate('/');
+  }
+
   return (
     <section className='sidebar'>
       <div className='sidebar-header'>
-        <img src={logo} alt='travker-logo' className='sidebar-header--logo' />
+        <Logo className='sidebar-header--logo' />
+        <h1 className='sidebar-header--title'>{user}<span style={{textTransform:'lowercase'}} >'s</span> Travker</h1>
       </div>
       <div className='sidebar-content'>
         {markers.length
           ? markers.map((marker) => {
               return (
                 <div key={marker.place_id} className='sidebar-content--item'>
-                  <p className='sidebar-content--item--place'>{marker.place_name}</p>
+                  <p className='sidebar-content--item--place'>
+                    {marker.place_name}
+                  </p>
                   <p className='sidebar-content--item--date'> {marker.date} </p>
                 </div>
               );
             })
           : null}
       </div>
-      <div className='sidebar-logout'>Logout</div>
+      <button className='sidebar-logout' onClick={removeToken}>
+        Logout
+      </button>
     </section>
   );
 }
