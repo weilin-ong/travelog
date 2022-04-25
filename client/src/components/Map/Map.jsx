@@ -13,6 +13,19 @@ import Locate from '../Locate/Locate';
 import { deletePin } from '../../service/api-service';
 import { toast } from 'react-toastify';
 
+const rating = {
+  10: 'Perfect',
+  9: 'Superb',
+  8: 'Great',
+  7: 'Good',
+  6: 'Not bad',
+  5: 'Average',
+  4: 'Meh',
+  3: 'Poor',
+  2: 'Awful',
+  1: 'Not coming again',
+};
+
 function Map({ setMarkers, markers, mapRef, panTo }) {
   const [selected, setSelected] = useState(null);
 
@@ -37,17 +50,14 @@ function Map({ setMarkers, markers, mapRef, panTo }) {
       mapId: '6376db3b31a25079',
       disableDefaultUI: true,
       zoomControl: true,
-      // clickableIcons: false,
+      clickableIcons: false,
     }),
     []
   );
 
-  //use useRef to avoid re-render
-  
   const handleMapLoad = useCallback((map) => {
     mapRef.current = map;
   }, []);
-
 
   function handleEditClick(e) {
     setEdit(true);
@@ -121,8 +131,8 @@ function Map({ setMarkers, markers, mapRef, panTo }) {
             }}
           >
             <div className='info-window'>
-              <span>You visited </span> <h2>{selected.place_name}</h2>
-              <p>on {dateFormat(selected.date)}</p>
+              <h2>{selected.place_name}</h2>
+              <p>{dateFormat(selected.date)}</p>
               {selected.images && (
                 <div className='photos-container'>
                   {selected.images.map((image, index) => {
@@ -141,7 +151,7 @@ function Map({ setMarkers, markers, mapRef, panTo }) {
                   })}
                 </div>
               )}
-              <p>Your experience was rated as {selected.rating}</p>
+              <p>Experience: {rating[selected.rating]}</p>
               {selected?.comment && (
                 <p> Additional comments: {selected.comment}</p>
               )}

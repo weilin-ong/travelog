@@ -66,12 +66,10 @@ function Form({ details, setMarkers, setShowForm, setDetails, setEdit, edit }) {
 
   function handleChange(event) {
     const { name, value, files } = event.target;
-    setFormData((prevFormData) => {
-      return {
-        ...prevFormData,
-        [name]: value,
-      };
-    });
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
     if (files) {
       setFormData((prevFormData) => ({
         ...prevFormData,
@@ -84,15 +82,18 @@ function Form({ details, setMarkers, setShowForm, setDetails, setEdit, edit }) {
     event.preventDefault();
 
     const { images } = formData;
-    if (images.length > 4) return toast('Please upload not more than 4 photos.');
 
-    if (images[0].name) toast('Photo upload might take awhile...');
+    if (images && images?.length > 4)
+      return toast('Please upload not more than 4 photos.');
 
-    const imgURLs = images[0].name
-      ? await Promise.all([...images].map((image) => storeImage(image))).catch(
-          (error) => console.log(error)
-        )
-      : null;
+    if (images && images[0]?.name) toast('Photo upload might take awhile...');
+
+    const imgURLs =
+      images && images[0]?.name
+        ? await Promise.all(
+            [...images].map((image) => storeImage(image))
+          ).catch((error) => console.log(error))
+        : null;
 
     const newMarker = {
       ...formData,
@@ -140,9 +141,19 @@ function Form({ details, setMarkers, setShowForm, setDetails, setEdit, edit }) {
   }
 
   function handleBackClick() {
+   
     setShowForm(false);
     setDetails(null);
     setEdit(false);
+  }
+
+  function handlePhotoDelete(e) {
+     e.preventDefault();
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      images: null,
+    }));
+    toast('Photos deleted successfully, click ADD to update the pin.');
   }
 
   return (
@@ -190,7 +201,7 @@ function Form({ details, setMarkers, setShowForm, setDetails, setEdit, edit }) {
             <option value='7'>7 Good</option>
             <option value='6'>6 Not bad</option>
             <option value='5'>5 Average</option>
-            <option value='4'>4 Urgh</option>
+            <option value='4'>4 Meh</option>
             <option value='3'>3 Poor</option>
             <option value='2'>2 Awful</option>
             <option value='1'>1 Blacklist</option>
@@ -209,15 +220,18 @@ function Form({ details, setMarkers, setShowForm, setDetails, setEdit, edit }) {
             upload your travel photos
             <span className='upload-max'> (max. 4)</span>
           </label>
-          {edit && (
-            <p className='upload-message'>
-              *If you wish to keep the previous photos, you can skip this step.
-              Otherwise, upload again with a new set of photos.
-            </p>
-          )}
 
-          <br />
-          <br />
+          {edit && details.images?.length > 0 && formData.images ? (
+            <>
+              <button onClick={handlePhotoDelete} className='delete-photos'>
+                Delete previous photos
+              </button>
+              <p className='upload-message'>
+                *Skip this step if you wish to keep the previous photos.
+                Otherwise, upload again with a new set of photos.
+              </p>
+            </>
+          ) : null}
           <input
             type='file'
             name='images'

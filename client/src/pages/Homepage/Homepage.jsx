@@ -1,9 +1,16 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import './Homepage.scss';
 import { ReactComponent as Logo } from '../../images/home-logo.svg';
 
 function Homepage() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const isAuthed = localStorage.getItem('token');
+    if (isAuthed) navigate('/map');
+  }, [navigate]);
+
   return (
     <section className='home-container'>
       <Logo className='home-logo' />
