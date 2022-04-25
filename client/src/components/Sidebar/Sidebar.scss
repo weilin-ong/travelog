@@ -28,20 +28,23 @@
 
     &--item {
       background-image: linear-gradient(to right, #ffbbc2b0, white);
+      width: 100%;
       display: flex;
-      gap: 4rem;
+      justify-content: space-between;
       padding: 1.5rem;
       border: none;
       border-top: 2px solid white;
       border-radius: 5px;
 
       &--place {
+        text-align: left;
         font-style: normal;
         font-weight: 700;
         font-size: 1.6rem;
       }
 
       &--date {
+       
         font-size: 1rem;
         color: #5a5a5a;
         align-self: flex-end;

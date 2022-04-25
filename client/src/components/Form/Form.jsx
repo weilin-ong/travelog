@@ -84,7 +84,7 @@ function Form({ details, setMarkers, setShowForm, setDetails, setEdit, edit }) {
     event.preventDefault();
 
     const { images } = formData;
-    console.log(images);
+    if (images.length > 4) return toast('Please upload not more than 4 photos.');
 
     if (images[0].name) toast('Photo upload might take awhile...');
 
@@ -205,11 +205,14 @@ function Form({ details, setMarkers, setShowForm, setDetails, setEdit, edit }) {
           value={formData.comment}
         />
         <div>
-          <label htmlFor='images'>upload your travel photos</label>
+          <label htmlFor='images'>
+            upload your travel photos
+            <span className='upload-max'> (max. 4)</span>
+          </label>
           {edit && (
             <p className='upload-message'>
-              *If you wish to keep the previous photos, you can
-              skip this step. Otherwise, upload again with a new set of photos.
+              *If you wish to keep the previous photos, you can skip this step.
+              Otherwise, upload again with a new set of photos.
             </p>
           )}
 
@@ -220,7 +223,6 @@ function Form({ details, setMarkers, setShowForm, setDetails, setEdit, edit }) {
             name='images'
             id='images'
             onChange={handleChange}
-            max='4'
             accept='image/*'
             multiple
             className='form-upload'

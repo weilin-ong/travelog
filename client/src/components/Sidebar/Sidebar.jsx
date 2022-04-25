@@ -16,6 +16,9 @@ function Sidebar({ markers, user, panTo }) {
     panTo({ lat, lng });
   }
 
+  //group country
+  //filter by rating
+
   return (
     <section className='sidebar'>
       <div className='sidebar-header'>

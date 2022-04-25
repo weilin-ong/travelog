@@ -6,7 +6,6 @@
   padding: 3rem;
   width: 40rem;
   height: 75vh;
-  /* border: 0.1rem solid rgba(255, 217, 217, 0.465); */
   border-radius: 5px;
   background-image: linear-gradient(
     to right bottom,
@@ -76,6 +75,14 @@
     border-radius: 4px;
   }
 
+  .upload-max {
+    padding-left: 1rem;
+    font-size: 1.3rem;
+    font-style: italic;
+    font-weight: 600;
+    text-transform: lowercase;
+  }
+
   .upload-message {
     padding-top: 1rem;
     font-size: 1.25rem;
@@ -132,3 +139,5 @@ select {
   border-radius: 5px;
   padding: 1rem;
 }
+
+
