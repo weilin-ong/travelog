@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './Register.scss';
 import { register } from '../api-service';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const initialState = {
   username: '',
@@ -76,6 +76,12 @@ function Register() {
           register
         </button>
       </form>
+      <p className='login-link'>
+        Have an account with us? Login{' '}
+        <Link style={{ textDecoration: 'underline' }} to='/login'>
+          here
+        </Link>
+      </p>
     </section>
   );
 }

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './Login.scss';
 import { toast } from 'react-toastify';
 import { login } from '../api-service';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const initialState = {
   email: '',
@@ -31,7 +31,7 @@ function Login() {
       setFormData(initialState);
     } else {
       const { token, username } = res;
-       toast(`Lovely to see you here, ${username}!`);
+      toast(`Lovely to see you here, ${username}!`);
       localStorage.setItem('token', token);
       navigate('/map');
     }
@@ -61,6 +61,12 @@ function Login() {
         />
         <button className='login-form--btn'>login</button>
       </form>
+      <p className='register-link'>
+        New to Travker? Register{' '}
+        <Link style={{ textDecoration: 'underline' }} to='/register'>
+          here
+        </Link>
+      </p>
     </section>
   );
 }
