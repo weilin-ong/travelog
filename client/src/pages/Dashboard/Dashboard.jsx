@@ -1,3 +1,4 @@
+import { useCallback, useRef } from 'react';
 import './Dashboard.scss';
 import { useEffect, useState } from 'react';
 import { useLoadScript } from '@react-google-maps/api';
@@ -17,6 +18,14 @@ function Dashboard() {
   const [user, setUser] = useState(null);
 
   const navigate = useNavigate();
+
+  //use useRef to avoid re-render
+  const mapRef = useRef();
+
+  const panTo = useCallback(({ lat, lng }) => {
+    mapRef.current.panTo({ lat, lng });
+    mapRef.current.setZoom(14);
+  }, []);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -45,8 +54,13 @@ function Dashboard() {
 
   return (
     <main className='main-container'>
-      <Sidebar markers={markers} user={user} />
-      <Map markers={markers} setMarkers={setMarkers} />
+      <Sidebar markers={markers} user={user} mapRef={mapRef} panTo={panTo} />
+      <Map
+        markers={markers}
+        setMarkers={setMarkers}
+        mapRef={mapRef}
+        panTo={panTo}
+      />
     </main>
   );
 }

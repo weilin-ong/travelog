@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef, useMemo } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 
 import {
   GoogleMap,
@@ -13,7 +13,7 @@ import Locate from '../Locate/Locate';
 import { deletePin } from '../../service/api-service';
 import { toast } from 'react-toastify';
 
-function Map({ setMarkers, markers }) {
+function Map({ setMarkers, markers, mapRef, panTo }) {
   const [selected, setSelected] = useState(null);
 
   //move from search
@@ -43,15 +43,11 @@ function Map({ setMarkers, markers }) {
   );
 
   //use useRef to avoid re-render
-  const mapRef = useRef();
+  
   const handleMapLoad = useCallback((map) => {
     mapRef.current = map;
   }, []);
 
-  const panTo = useCallback(({ lat, lng }) => {
-    mapRef.current.panTo({ lat, lng });
-    mapRef.current.setZoom(14);
-  }, []);
 
   function handleEditClick(e) {
     setEdit(true);

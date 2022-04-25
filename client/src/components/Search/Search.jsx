@@ -1,5 +1,4 @@
 import './Search.scss';
-import { useState } from 'react';
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,

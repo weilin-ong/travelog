@@ -4,12 +4,16 @@ import { ReactComponent as Logo } from '../../images/logo.svg';
 import { logout } from '../../service/api-service';
 import { useNavigate } from 'react-router-dom';
 
-function Sidebar({ markers, user }) {
+function Sidebar({ markers, user, panTo }) {
   const navigate = useNavigate();
 
   function removeToken() {
     logout('token');
     navigate('/');
+  }
+
+  function handleClick(lat, lng) {
+    panTo({ lat, lng });
   }
 
   return (
@@ -22,12 +26,16 @@ function Sidebar({ markers, user }) {
         {markers.length
           ? markers.map((marker) => {
               return (
-                <div key={marker.place_id} className='sidebar-content--item'>
+                <button
+                  onClick={() => handleClick(marker.lat, marker.lng)}
+                  key={marker.place_id}
+                  className='sidebar-content--item'
+                >
                   <p className='sidebar-content--item--place'>
                     {marker.place_name}
                   </p>
                   <p className='sidebar-content--item--date'> {marker.date} </p>
-                </div>
+                </button>
               );
             })
           : null}
