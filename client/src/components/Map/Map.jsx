@@ -51,6 +51,10 @@ function Map({ setMarkers, markers, mapRef, panTo }) {
       disableDefaultUI: true,
       zoomControl: true,
       clickableIcons: false,
+      restriction: {
+        latLngBounds: { north: 85, south: -85, west: -180, east: 180 },
+        strictBounds: true,
+      },
     }),
     []
   );
