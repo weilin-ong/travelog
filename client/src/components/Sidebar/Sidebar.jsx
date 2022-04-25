@@ -16,7 +16,7 @@ function Sidebar({ markers, user }) {
     <section className='sidebar'>
       <div className='sidebar-header'>
         <Logo className='sidebar-header--logo' />
-        <h1 className='sidebar-header--title'>{user}<span style={{textTransform:'lowercase'}} >'s</span> Travker</h1>
+        <h1 className='sidebar-header--title'>{user}'s Travker</h1>
       </div>
       <div className='sidebar-content'>
         {markers.length

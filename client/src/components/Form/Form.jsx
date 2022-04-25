@@ -51,6 +51,7 @@ function Form({ details, setMarkers, setShowForm, setDetails, setEdit, edit }) {
         (error) => {
           // Handle unsuccessful uploads
           reject(error);
+          toast('Upload is unsuccessful');
         },
         () => {
           // Handle successful uploads on complete
@@ -83,10 +84,11 @@ function Form({ details, setMarkers, setShowForm, setDetails, setEdit, edit }) {
     event.preventDefault();
 
     const { images } = formData;
+    console.log(images);
 
-    if (images) toast('Photo upload might take awhile...');
+    if (images[0].name) toast('Photo upload might take awhile...');
 
-    const imgURLs = images
+    const imgURLs = images[0].name
       ? await Promise.all([...images].map((image) => storeImage(image))).catch(
           (error) => console.log(error)
         )
@@ -140,6 +142,7 @@ function Form({ details, setMarkers, setShowForm, setDetails, setEdit, edit }) {
   function handleBackClick() {
     setShowForm(false);
     setDetails(null);
+    setEdit(false);
   }
 
   return (
@@ -148,7 +151,7 @@ function Form({ details, setMarkers, setShowForm, setDetails, setEdit, edit }) {
         <button className='back-btn' onClick={handleBackClick}>
           Back
         </button>
-        <h2 className='form-header-title'>Add a Pin</h2>
+        <h2 className='form-header-title'> {edit ? 'Edit' : 'Add'} a Pin</h2>
         <Pin className='form-header-pin' />
       </div>
       <form className='form' onSubmit={handleSubmit}>
@@ -203,6 +206,13 @@ function Form({ details, setMarkers, setShowForm, setDetails, setEdit, edit }) {
         />
         <div>
           <label htmlFor='images'>upload your travel photos</label>
+          {edit && (
+            <p className='upload-message'>
+              *If you wish to keep the previous photos, you can
+              skip this step. Otherwise, upload again with a new set of photos.
+            </p>
+          )}
+
           <br />
           <br />
           <input

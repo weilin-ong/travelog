@@ -38,10 +38,6 @@ function Register() {
     }
   }
 
-  function validation() {
-    return !formData.email || !formData.password || !formData.username;
-  }
-
   return (
     <section className='register-container'>
       <h1 className='register-title'>new account</h1>
@@ -72,9 +68,7 @@ function Register() {
           onChange={handleChange}
           value={formData.password}
         />
-        <button className='register-form--btn' disabled={validation()}>
-          register
-        </button>
+        <button className='register-form--btn'>register</button>
       </form>
       <p className='login-link'>
         Have an account with us? Login{' '}
