@@ -16,6 +16,7 @@ function Sidebar({ markers, user, panTo }) {
     panTo({ lat, lng });
   }
 
+  //TODO
   //group country
   //filter by rating
 

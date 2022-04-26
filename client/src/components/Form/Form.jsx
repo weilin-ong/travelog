@@ -17,7 +17,7 @@ function Form({ details, setMarkers, setShowForm, setDetails, setEdit, edit }) {
   });
 
   // helper func for upload image
-  async function storeImage(image) {
+  async function storeImage(image, index) {
     return new Promise((resolve, reject) => {
       //create unique id to each image
 
@@ -37,14 +37,16 @@ function Form({ details, setMarkers, setShowForm, setDetails, setEdit, edit }) {
           // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
           const progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+
+          if (progress === 100) toast(`Uploaded photo ${index + 1}`);
           console.log('Upload is ' + progress + '% done');
           // eslint-disable-next-line default-case
           switch (snapshot.state) {
             case 'paused':
-              toast('Upload is paused');
+              console.log('Upload is paused');
               break;
             case 'running':
-              toast('Upload is running');
+              console.log('Upload is running');
               break;
           }
         },
@@ -86,12 +88,13 @@ function Form({ details, setMarkers, setShowForm, setDetails, setEdit, edit }) {
     if (images && images?.length > 4)
       return toast('Please upload not more than 4 photos.');
 
-    if (images && images[0]?.name) toast('Photo upload might take awhile...');
+    if (images && images[0]?.name)
+      toast("Photo upload might take awhile, don't close the window.");
 
     const imgURLs =
       images && images[0]?.name
         ? await Promise.all(
-            [...images].map((image) => storeImage(image))
+            [...images].map((image, index) => storeImage(image, index))
           ).catch((error) => console.log(error))
         : null;
 
@@ -141,19 +144,18 @@ function Form({ details, setMarkers, setShowForm, setDetails, setEdit, edit }) {
   }
 
   function handleBackClick() {
-   
     setShowForm(false);
     setDetails(null);
     setEdit(false);
   }
 
   function handlePhotoDelete(e) {
-     e.preventDefault();
+    e.preventDefault();
     setFormData((prevFormData) => ({
       ...prevFormData,
       images: null,
     }));
-    toast('Photos deleted successfully, click ADD to update the pin.');
+    toast('Photos deleted successfully, click ADD to finish the edit.');
   }
 
   return (
@@ -210,10 +212,11 @@ function Form({ details, setMarkers, setShowForm, setDetails, setEdit, edit }) {
         <input
           type='text'
           name='comment'
-          placeholder='additional comment'
+          placeholder='additional comment (max. 50)'
           onChange={handleChange}
           autoComplete='off'
           value={formData.comment}
+          maxLength='50'
         />
         <div>
           <label htmlFor='images'>
@@ -227,7 +230,7 @@ function Form({ details, setMarkers, setShowForm, setDetails, setEdit, edit }) {
                 Delete previous photos
               </button>
               <p className='upload-message'>
-                *Skip this step if you wish to keep the previous photos.
+                *Skip the upload if you wish to keep the previous photos.
                 Otherwise, upload again with a new set of photos.
               </p>
             </>

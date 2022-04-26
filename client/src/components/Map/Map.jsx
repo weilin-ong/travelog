@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback } from 'react';
 
 import {
   GoogleMap,
@@ -26,7 +26,25 @@ const rating = {
   1: 'Not coming again',
 };
 
+//reset to the center of the world
+const center = {
+  lat: 32.7502,
+  lng: 10.7655,
+};
+
+const options = {
+  mapId: '6376db3b31a25079', //map style
+  disableDefaultUI: true,
+  zoomControl: true,
+  clickableIcons: false,
+  restriction: {
+    latLngBounds: { north: 85, south: -85, west: -180, east: 180 },
+    strictBounds: true,
+  },
+};
+
 function Map({ setMarkers, markers, mapRef, panTo }) {
+  //log and check how many times it renders
   const [selected, setSelected] = useState(null);
 
   //move from search
@@ -35,33 +53,44 @@ function Map({ setMarkers, markers, mapRef, panTo }) {
 
   const [edit, setEdit] = useState(false);
 
-  //hard coded KL
-  //use Memo to avoid re-rendering
-  const center = useMemo(
-    () => ({
-      lat: 3.119306,
-      lng: 101.69351,
-    }),
-    []
-  );
-  //leave only zoom control option
-  const options = useMemo(
-    () => ({
-      mapId: '6376db3b31a25079',
-      disableDefaultUI: true,
-      zoomControl: true,
-      clickableIcons: false,
-      restriction: {
-        latLngBounds: { north: 85, south: -85, west: -180, east: 180 },
-        strictBounds: true,
-      },
-    }),
-    []
-  );
+  //hard coded KL ===> move outside
+  //use Memo returns a memoized value
+  // const center = useMemo(
+  //   () => ({
+  //     lat: 3.119306,
+  //     lng: 101.69351,
+  //   }),
+  //   []
+  // );
 
-  const handleMapLoad = useCallback((map) => {
-    mapRef.current = map;
-  }, []);
+  //leave only zoom control option ===> move outside if value not going to change
+  // const options = useMemo(
+  //   () => ({
+  //     mapId: '6376db3b31a25079',
+  //     disableDefaultUI: true,
+  //     zoomControl: true,
+  //     clickableIcons: false,
+  //     restriction: {
+  //       latLngBounds: { north: 85, south: -85, west: -180, east: 180 },
+  //       strictBounds: true,
+  //     },
+  //   }),
+  //   []
+  // );
+
+  // const mapRef2 = useRef();
+
+  // const panTo = useCallback(({ lat, lng }) => {
+  //   mapRef2.current.panTo({ lat, lng });
+  //   mapRef2.current.setZoom(14);
+  // }, []);
+
+  const handleMapLoad = useCallback(
+    (map) => {
+      mapRef.current = map;
+    },
+    [mapRef]
+  ); //dependency coming from props
 
   function handleEditClick(e) {
     setEdit(true);
@@ -103,7 +132,7 @@ function Map({ setMarkers, markers, mapRef, panTo }) {
 
       <GoogleMap
         id='map'
-        zoom={12}
+        zoom={2}
         center={center}
         mapContainerClassName='map-container'
         options={options}
@@ -155,9 +184,15 @@ function Map({ setMarkers, markers, mapRef, panTo }) {
                   })}
                 </div>
               )}
-              <p>Experience: {rating[selected.rating]}</p>
+              <p>
+                <span className='bold'>Experience: </span>{' '}
+                {rating[selected.rating]}
+              </p>
               {selected?.comment && (
-                <p> Additional comments: {selected.comment}</p>
+                <p>
+                  <span className='bold'>Additional comments: </span>
+                  {selected.comment}
+                </p>
               )}
               <div className='info-window-buttons'>
                 <button

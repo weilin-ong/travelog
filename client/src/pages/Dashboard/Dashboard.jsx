@@ -10,7 +10,7 @@ import { toast } from 'react-toastify';
 
 import { useNavigate } from 'react-router-dom';
 
-//declare outside to avoid re-render
+// declare outside or use memo to avoid re-render
 const libraries = ['places'];
 
 function Dashboard() {
@@ -18,6 +18,9 @@ function Dashboard() {
   const [user, setUser] = useState(null);
 
   const navigate = useNavigate();
+
+
+  // const libraries = useMemo(() => ['places'], []);
 
   //use useRef to avoid re-render
   const mapRef = useRef();
@@ -42,7 +45,8 @@ function Dashboard() {
     };
 
     getUserPins(token);
-  }, [navigate]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
