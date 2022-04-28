@@ -30,7 +30,7 @@ Travker is your personal digital world map where you can pin-point all the place
 ![](./screenshot/screenshot2.png)
 
 
-#### Homepage (./screenshot/homepage.png)
+#### Homepage ![]./screenshot/homepage.png
 
 #### Register (./screenshot/register-page.png)
 
