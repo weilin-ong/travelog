@@ -24,14 +24,14 @@ Travker is your personal digital world map where you can pin-point all the place
 ### Screenshot 
 
 #### Screenshot 1
-![](./screenshot/screenshot1.png)
+![](./screenshot/screenshot-1.png)
 
 #### Screenshot 1
-![](./screenshot/screenshot2.png)
+![](./screenshot/screenshot-2.png)
 
 - Homepage: [./screenshot/homepage.png](./screenshot/homepage.png)
 - Register [./screenshot/register-page.png](./screenshot/register-page.png)
 - Login Screenshot: [./screenshot/login-page.png](./screenshot/login-page.png)
 - Dashboard: [./screenshot/dashboard.png](./screenshot/dashboard.png)
 - Add Pin Form: [./screenshot/form.png](./screenshot/form.png)
-- Pin Info Box:![./screenshot/info-window.png](./screenshot/info-window.png)
+- Pin Info Box: [./screenshot/info-window.png](./screenshot/info-window.png)
