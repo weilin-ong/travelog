@@ -1,8 +1,11 @@
 const mongoose = require('mongoose');
 
+const dbURL =
+  process.env.MONGO_ATLAS_URL || 'mongodb://127.0.0.1:27017/travkerdb';
+
 function connectDB() {
   mongoose
-    .connect(process.env.MONGO_LOCAL_URL, {
+    .connect(dbURL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     })
