@@ -21,4 +21,4 @@ Travker is your personal digital world map where you can pin-point all the place
 ## Overview
 
 ### Screenshot 
-![](./client/src/images/logo.jpg)
+![](./screenshot/Tour%20Travel%20Business%20Logo%20(2).png)
