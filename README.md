@@ -34,11 +34,9 @@ Travker is your personal digital world map where you can pin-point all the place
 
 #### Register (./screenshot/register-page.png)
 
-#### Login
-![](./screenshot/login-page.png)
+- Login Screenshot: [./screenshot/login-page.png]
 
-#### Dashboard
-![](./screenshot/dashboard.png)
+- Dashboard: ![./screenshot/dashboard.png]
 
 #### Add Pin Form
 ![](./screenshot/form.png)
