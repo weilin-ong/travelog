@@ -45,7 +45,7 @@ Travker is your personal digital world map where you can pin-point all the place
 
 ### Links
 
-- Demo: [https://www.youtube.com/watch?v=vvC1Y212qco&ab_channel=WeiLin](https://www.youtube.com/watch?v=vvC1Y212qco&ab_channel=WeiLin)
+- Demo video: [https://youtu.be/vvC1Y212qco](https://youtu.be/vvC1Y212qco)
 - Live Site: *Pending*
 
 ## Getting Started
