@@ -23,11 +23,16 @@ Travker is your personal digital world map where you can pin-point all the place
 
 ### Screenshot 
 
-#### Homepage 
-![](./screenshot/homepage.png)
+#### Screenshot 1
+![](./screenshot/screenshot1.png)
 
-#### Register
-![](./screenshot/register-page.png)
+#### Screenshot 1
+![](./screenshot/screenshot2.png)
+
+
+#### Homepage (./screenshot/homepage.png)
+
+#### Register (./screenshot/register-page.png)
 
 #### Login
 ![](./screenshot/login-page.png)
