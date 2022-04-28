@@ -17,7 +17,7 @@ function Sidebar({ markers, user, panTo }) {
   }
 
   //TODO
-  //group country
+  //group by country
   //filter by rating
 
   return (

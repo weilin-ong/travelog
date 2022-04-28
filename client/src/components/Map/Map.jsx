@@ -53,7 +53,7 @@ function Map({ setMarkers, markers, mapRef, panTo }) {
 
   const [edit, setEdit] = useState(false);
 
-  //hard coded KL ===> move outside
+  //hard coded KL, MY ===> move outside if value never gonna change
   //use Memo returns a memoized value
   // const center = useMemo(
   //   () => ({
@@ -63,27 +63,6 @@ function Map({ setMarkers, markers, mapRef, panTo }) {
   //   []
   // );
 
-  //leave only zoom control option ===> move outside if value not going to change
-  // const options = useMemo(
-  //   () => ({
-  //     mapId: '6376db3b31a25079',
-  //     disableDefaultUI: true,
-  //     zoomControl: true,
-  //     clickableIcons: false,
-  //     restriction: {
-  //       latLngBounds: { north: 85, south: -85, west: -180, east: 180 },
-  //       strictBounds: true,
-  //     },
-  //   }),
-  //   []
-  // );
-
-  // const mapRef2 = useRef();
-
-  // const panTo = useCallback(({ lat, lng }) => {
-  //   mapRef2.current.panTo({ lat, lng });
-  //   mapRef2.current.setZoom(14);
-  // }, []);
 
   const handleMapLoad = useCallback(
     (map) => {

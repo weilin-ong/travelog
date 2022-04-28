@@ -84,19 +84,19 @@ function Form({ details, setMarkers, setShowForm, setDetails, setEdit, edit }) {
     event.preventDefault();
 
     const { images } = formData;
+    let imgURLs = images;
 
-    if (images && images?.length > 4)
+    // if (!images) imgURLs = null;
+
+    if (images && images.length > 4)
       return toast('Please upload not more than 4 photos.');
 
-    if (images && images[0]?.name)
+    if (images && images[0].name) {
       toast("Photo upload might take awhile, don't close the window.");
-
-    const imgURLs =
-      images && images[0]?.name
-        ? await Promise.all(
-            [...images].map((image, index) => storeImage(image, index))
-          ).catch((error) => console.log(error))
-        : null;
+      imgURLs = await Promise.all(
+        [...images].map((image, index) => storeImage(image, index))
+      ).catch((error) => console.log(error));
+    }
 
     const newMarker = {
       ...formData,
@@ -212,11 +212,11 @@ function Form({ details, setMarkers, setShowForm, setDetails, setEdit, edit }) {
         <input
           type='text'
           name='comment'
-          placeholder='additional comment (max. 50)'
+          placeholder='additional comment (max. 150)'
           onChange={handleChange}
           autoComplete='off'
           value={formData.comment}
-          maxLength='50'
+          maxLength='150'
         />
         <div>
           <label htmlFor='images'>

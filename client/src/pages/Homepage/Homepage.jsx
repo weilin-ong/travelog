@@ -9,7 +9,8 @@ function Homepage() {
   useEffect(() => {
     const isAuthed = localStorage.getItem('token');
     if (isAuthed) navigate('/map');
-  }, [navigate]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <section className='home-container'>
