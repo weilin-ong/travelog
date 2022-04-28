@@ -45,8 +45,8 @@ Travker is your personal digital world map where you can pin-point all the place
 
 ### Links
 
-Demo: [https://www.youtube.com/watch?v=vvC1Y212qco&ab_channel=WeiLin](https://www.youtube.com/watch?v=vvC1Y212qco&ab_channel=WeiLin)
-Live Site: Pending
+- Demo: [https://www.youtube.com/watch?v=vvC1Y212qco&ab_channel=WeiLin](https://www.youtube.com/watch?v=vvC1Y212qco&ab_channel=WeiLin)
+- Live Site: *Pending*
 
 ## Getting Started
 
@@ -93,7 +93,7 @@ npm run dev
 ### Built with
 
 - [React](https://reactjs.org/) - Front end library for building user interfaces
-- [React Router](https://reactrouter.com/) - Routing and *navigation* for *React* Native apps
+- [React Router](https://reactrouter.com/) - Routing and navigation for React
 - [Node.js](https://nodejs.org/en/) - Back end server
 - [Express](https://expressjs.com/) - Back end framework for Node.js
 - [MongoDB](https://www.mongodb.com/) - Non-SQL Database
@@ -101,13 +101,14 @@ npm run dev
 - [Firebase Storage](https://firebase.google.com) - Realtime storage
 - [React Google Map Api](https://www.npmjs.com/package/@react-google-maps/api) - Bindings to the google maps api and is used as React Components
 - [JWT](https://jwt.io/) - Authentication. Shares security information between client and server
+- [Canva](https://www.canva.com/) - Logo design, background image and video editing tools.
 - Love, lots of love ♥
 
 ### Continued development
-- pending
+- *pending*
 
 ### Useful resources
-- pending
+- *pending*
 
 ## Author
 
@@ -115,4 +116,4 @@ Wei Lin Ong - [Github](https://github.com/weilin93) - [LinkedIn](https://www.lin
 
 
 ## Acknowledgments
-- pending
+- *pending*
