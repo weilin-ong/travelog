@@ -179,6 +179,7 @@ function Form({ details, setMarkers, setShowForm, setDetails, setEdit, edit }) {
         <input
           type='date'
           name='date'
+          max={new Date().toISOString().split('T')[0]}
           onChange={handleChange}
           value={formData.date}
           required={true}

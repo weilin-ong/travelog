@@ -19,10 +19,6 @@ function Dashboard() {
 
   const navigate = useNavigate();
 
-
-  // const libraries = useMemo(() => ['places'], []);
-
-  //use useRef to avoid re-render
   const mapRef = useRef();
 
   const panTo = useCallback(({ lat, lng }) => {
