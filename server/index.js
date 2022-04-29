@@ -3,10 +3,14 @@ const path = require('path');
 const express = require('express');
 const cors = require('cors');
 const router = require('./router');
-const PORT = 3001;
+
+let PORT = process.env.PORT;
+if (PORT == null || PORT == '') {
+  PORT = 3001;
+}
+
 const { connectDB } = require('./models/index');
 const hostname = '127.0.0.1';
-
 
 const app = express();
 const corsConfig = {
