@@ -17,7 +17,7 @@ function Homepage() {
       <Logo className='home-logo' />
       <div className='homeBtn-container'>
         <Link to='/login'>
-          <button className='login home-container--btn'> loginnnnn </button>
+          <button className='login home-container--btn'> login </button>
         </Link>
 
         <Link to='/register'>
