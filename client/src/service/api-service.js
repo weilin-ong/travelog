@@ -1,8 +1,6 @@
 const baseURL =
   process.env.REACT_APP_SERVER_BASE_URL || 'http://127.0.0.1:3001';
 
-console.log(baseURL);
-
 function apiHelper(method, route, headers, body) {
   return fetch(`${baseURL}/${route}`, {
     method: method,
