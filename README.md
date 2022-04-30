@@ -39,7 +39,7 @@ Travker is your personal digital world map where you can pin-point all the place
 ### Links
 
 - Demo video: [https://youtu.be/vvC1Y212qco](https://youtu.be/vvC1Y212qco)
-- Live Site: [https://travker.netlify.app] https://travker.netlify.app
+- Live Site: [https://travker.netlify.app] (https://travker.netlify.app)
 
 ## Getting Started
 
