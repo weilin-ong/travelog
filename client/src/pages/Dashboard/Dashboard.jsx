@@ -44,8 +44,9 @@ function Dashboard() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+
   const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: 'AIzaSyCnviIn1Z6zyJFI6lBxwlcztjnmChuRxQU',
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     //for search places, we want places libraries
     libraries,
   });
