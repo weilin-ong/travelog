@@ -17,20 +17,13 @@ Travker is your personal digital world map where you can pin-point all the place
   - [Screenshot](#screenshot)
   - [Links](#links)
 - [Getting Started](#getting-started)
-- [My Process](#my-process)
-  - [Built with](#built-with)
-  - [Continued development](#continued-development)
-  - [Useful resources](#useful-resources)
+- [Tech Stack](#tech-stack)
 - [Author](#author)
-- [Acknowledgments](#acknowledgments)
+
 
 ## Overview
 
 ### Screenshot
-
-#### Screenshot 1
-
-![](./screenshot/screenshot-1.png)
 
 #### Screenshot 1
 
@@ -46,7 +39,7 @@ Travker is your personal digital world map where you can pin-point all the place
 ### Links
 
 - Demo video: [https://youtu.be/vvC1Y212qco](https://youtu.be/vvC1Y212qco)
-- Live Site: *Pending*
+- Live Site: [https://travker.netlify.app] https://travker.netlify.app
 
 ## Getting Started
 
@@ -79,18 +72,18 @@ cd server
 npm install
 ```
 
-5. Register or login to [https://console.cloud.google.com/](https://console.cloud.google.com/). Create a new project and create a new Api Key and replace googleMapsApiKey on /client/src/dashboard/dashboard.jsx with the new Key you created
+5. Create a new project on [https://console.cloud.google.com/](https://console.cloud.google.com/) and create a new Api Key. Replace googleMapsApiKey on /client/src/dashboard/dashboard.jsx with the new Key you created.
 
-6. Start development
+6. Setup firebase configuration [https://firebase.google.com/](https://firebase.google.com/)
+
+7. Start development
 
 ```
 cd ..
 npm run dev
 ```
 
-## My Process
-
-### Built with
+## Tech Stack
 
 - [React](https://reactjs.org/) - Front end library for building user interfaces
 - [React Router](https://reactrouter.com/) - Routing and navigation for React
@@ -104,16 +97,9 @@ npm run dev
 - [Canva](https://www.canva.com/) - Logo design, background image and video editing tools.
 - Love, lots of love ♥
 
-### Continued development
-- *pending*
-
-### Useful resources
-- *pending*
 
 ## Author
 
 Wei Lin Ong - [Github](https://github.com/weilin93) - [LinkedIn](https://www.linkedin.com/in/ong-wei-lin/)
 
 
-## Acknowledgments
-- *pending*

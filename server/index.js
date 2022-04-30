@@ -14,9 +14,14 @@ const hostname = '127.0.0.1';
 
 const app = express();
 const corsConfig = {
-  origin: 'http://localhost:3000',
+  origin: process.env.CLIENT_URL || 'http://127.0.0.1:3000',
   credentials: true,
+  methods: ['GET,PUT,PATCH,POST,DELETE'],
 };
+
+app.get('/', (req, res) => {
+  res.send('App is running');
+});
 
 app
   .use(cors(corsConfig))
