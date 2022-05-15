@@ -9,7 +9,7 @@ if (PORT == null || PORT == '') {
   PORT = 3001;
 }
 
-const { connectDB } = require('./models/index');
+const { connectDB } = require('./src/models/index');
 const hostname = '127.0.0.1';
 
 const app = express();
