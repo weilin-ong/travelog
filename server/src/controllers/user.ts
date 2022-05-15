@@ -1,6 +1,6 @@
-const User = require('../models/user');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+import bcrypt from 'bcryptjs';
+import User from '../models/user';
+import jwt from 'jsonwebtoken';
 const SECRET_KEY = process.env.JWT_SECRET_KEY || 'SECRET';
 
 //REGISTER USER
@@ -72,4 +72,4 @@ async function login(req, res) {
   }
 }
 
-module.exports = { register, login };
+export default { register, login };

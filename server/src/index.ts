@@ -1,8 +1,9 @@
-const dotenv = require('dotenv').config();
-const path = require('path');
-const express = require('express');
-const cors = require('cors');
-const router = require('./router');
+import dotenv from 'dotenv';
+dotenv.config();
+import express from 'express';
+import cors from 'cors';
+import router from './router';
+
 
 let PORT = process.env.PORT;
 if (PORT == null || PORT == '') {

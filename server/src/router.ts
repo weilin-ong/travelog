@@ -1,4 +1,4 @@
-const { Router } = require('express');
+import { Router, Request, Response } from 'express';
 const router = Router();
 
 const { register, login } = require('./controllers/user');
@@ -16,4 +16,4 @@ router.post('/add', authMiddleware, addPin);
 router.put('/edit', authMiddleware, editPin);
 router.delete('/remove', authMiddleware, removePin);
 
-module.exports = router;
+export default router;
