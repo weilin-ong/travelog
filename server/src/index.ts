@@ -1,9 +1,10 @@
-const dotenv = require('dotenv').config();
-const express = require('express');
-const cors = require('cors');
-const router = require('./router');
+import dotenv from 'dotenv';
+dotenv.config();
+import express, { Application } from 'express';
+import cors from 'cors';
+import router from './router';
 
-let PORT = process.env.PORT;
+let PORT: string | number | undefined = process.env.PORT; //env from heroku
 if (PORT == null || PORT == '') {
   PORT = 3001;
 }
@@ -11,7 +12,7 @@ if (PORT == null || PORT == '') {
 const { connectDB } = require('./models/index');
 const hostname = '127.0.0.1';
 
-const app = express();
+const app: Application = express();
 const corsConfig = {
   origin: process.env.CLIENT_URL || 'http://127.0.0.1:3000',
   credentials: true,

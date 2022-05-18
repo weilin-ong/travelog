@@ -1,10 +1,11 @@
 import bcrypt from 'bcryptjs';
 import User from '../models/user';
 import jwt from 'jsonwebtoken';
+import { Request, Response } from 'express';
 const SECRET_KEY = process.env.JWT_SECRET_KEY || 'SECRET';
 
 //REGISTER USER
-async function register(req, res) {
+async function register(req: Request, res: Response) {
   try {
     const { username, email, password } = req.body;
 
@@ -49,7 +50,7 @@ async function register(req, res) {
 }
 
 //LOGIN USER
-async function login(req, res) {
+async function login(req: Request, res: Response) {
   try {
     const { email, password } = req.body;
 

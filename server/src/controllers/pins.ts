@@ -1,10 +1,11 @@
 import User from '../models/user';
+import { UserInterface } from '../@types/index';
 
 //GET USER'S PINS
-async function getPins(req, res) {
+async function getPins(req: Request, res: Response) {
   try {
     res.status(200);
-    res.json({ pins: req.user.pins, username: req.user.username });
+    res.json({ pins: req.user.pins, username: req.user.username }: UserInterface);
   } catch (error) {
     console.log(error);
     res.status(500).send({ error: '500', message: 'Could not get pins' });
@@ -12,7 +13,7 @@ async function getPins(req, res) {
 }
 
 //ADD A PIN
-async function addPin(req, res) {
+async function addPin(req: Request, res: Response) {
   try {
     const { place_id, place_name, date, rating, lat, lng } = req.body;
 
@@ -42,7 +43,7 @@ async function addPin(req, res) {
 }
 
 //EDIT A PIN
-async function editPin(req, res) {
+async function editPin(req: Request, res: Response) {
   try {
     const { place_id, place_name, date, rating, lat, lng } = req.body;
 
@@ -74,7 +75,7 @@ async function editPin(req, res) {
 }
 
 //REMOVE A PIN
-async function removePin(req, res) {
+async function removePin(req: Request, res: Response) {
   const { place_id } = req.body;
 
   //if pin not found

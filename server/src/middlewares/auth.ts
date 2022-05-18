@@ -1,12 +1,10 @@
 import User from '../models/user';
 import jwt from 'jsonwebtoken';
+import { NextFunction, Request, Response } from 'express';
 const SECRET_KEY = process.env.JWT_SECRET_KEY || 'SECRET';
 
-async function authMiddleware(req, res, next) {
-  if (
-    !req.headers.authorization &&
-    !req.headers.authorization.startsWith('Bearer')
-  )
+async function authMiddleware(req: Request, res: Response, next: NextFunction) {
+  if (!req.headers.authorization.startsWith('Bearer'))
     return res
       .status(401)
       .send({ error: '401', message: 'Please login to view your map.' });
