@@ -1,4 +1,4 @@
-const User = require('../models/user');
+import User from '../models/user';
 
 //GET USER'S PINS
 async function getPins(req, res) {
@@ -97,4 +97,4 @@ async function removePin(req, res) {
   }
 }
 
-module.exports = { addPin, getPins, editPin, removePin };
+export default { addPin, getPins, editPin, removePin };
