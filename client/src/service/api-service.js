@@ -4,7 +4,7 @@ const baseURL =
 console.log(baseURL);
 
 function apiHelper(method, route, headers, body) {
-  return fetch(`http://127.0.0.1:3001/${route}`, {
+  return fetch(`${baseURL}/${route}`, {
     method: method,
     credentials: 'include',
     mode: 'cors',
