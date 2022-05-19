@@ -1,10 +1,10 @@
 import { Router } from 'express';
 const router = Router();
 
-const { register, login } = require('./controllers/user');
-const { addPin, editPin, removePin, getPins } = require('./controllers/pins');
+import { register, login } from './controllers/user';
+import { addPin, editPin, removePin, getPins } from './controllers/pins';
 
-const { authMiddleware } = require('./middlewares/auth');
+import { authMiddleware } from './middlewares/auth';
 
 //user's authentication
 router.post('/register', register);

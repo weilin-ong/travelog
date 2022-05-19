@@ -1,4 +1,4 @@
-const { mongoose } = require('.');
+import mongoose from 'mongoose';
 
 const pinSchema = new mongoose.Schema({
   place_id: {

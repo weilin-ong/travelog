@@ -27,6 +27,7 @@ function Register() {
   async function handleSubmit(e) {
     e.preventDefault();
     const res = await register(formData);
+
     if (res.error) {
       toast(`${res.message}`);
       setFormData(initialState);

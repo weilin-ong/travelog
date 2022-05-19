@@ -5,9 +5,10 @@ import { Request, Response } from 'express';
 const SECRET_KEY = process.env.JWT_SECRET_KEY || 'SECRET';
 
 //REGISTER USER
-async function register(req: Request, res: Response) {
+export async function register(req: Request, res: Response) {
   try {
     const { username, email, password } = req.body;
+    console.log(req.body);
 
     //validation
     if (!username || !email || !password) {
@@ -45,12 +46,12 @@ async function register(req: Request, res: Response) {
     }
   } catch (error) {
     console.log(error);
-    res.sendStatus(500);
+    return res.sendStatus(500);
   }
 }
 
 //LOGIN USER
-async function login(req: Request, res: Response) {
+export async function login(req: Request, res: Response) {
   try {
     const { email, password } = req.body;
 
@@ -69,8 +70,6 @@ async function login(req: Request, res: Response) {
     }
   } catch (error) {
     console.log(error);
-    res.sendStatus(500);
+    return res.sendStatus(500);
   }
 }
-
-export default { register, login };

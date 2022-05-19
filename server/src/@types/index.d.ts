@@ -1,10 +1,15 @@
+import { Request } from 'express';
+
+//user
 export interface UserInterface {
+  _id: string;
   email: string;
   password: string;
   username: string;
-  pins?: PinInterface[];
+  pins: PinInterface[];
 }
 
+//pin
 interface PinInterface {
   place_id: string;
   place_name: string;
@@ -14,4 +19,13 @@ interface PinInterface {
   date: string;
   images?: string[];
   comment?: string;
+}
+
+//auth
+export interface UserAuthInfoRequest extends Request {
+  user: UserInterface;
+}
+
+export interface JwtPayLoad {
+  _id: string;
 }

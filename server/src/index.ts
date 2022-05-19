@@ -9,12 +9,12 @@ if (PORT == null || PORT == '') {
   PORT = 3001;
 }
 
-const { connectDB } = require('./models/index');
+import { connectDB } from './models/index';
 const hostname = '127.0.0.1';
 
 const app: Application = express();
 const corsConfig = {
-  origin: process.env.CLIENT_URL || 'http://127.0.0.1:3000',
+  origin: process.env.CLIENT_URL || 'http://locahost:3000',
   credentials: true,
   methods: ['GET,PUT,PATCH,POST,DELETE'],
 };
