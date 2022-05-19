@@ -2,7 +2,7 @@ import User from '../models/user';
 import jwt from 'jsonwebtoken';
 import { NextFunction, Request, Response } from 'express';
 const SECRET_KEY = process.env.JWT_SECRET_KEY || 'SECRET';
-import { UserAuthInfoRequest, JwtPayLoad } from '../@types';
+import { UserAuthInfoRequest, JwtPayLoad, UserInterface } from '../@types';
 
 export async function authMiddleware(
   req: Request,
@@ -24,14 +24,16 @@ export async function authMiddleware(
   try {
     const { _id } = jwt.verify(token, SECRET_KEY) as JwtPayLoad;
     //get user's details except password
-    const user = await User.findById({ _id }).select('-password');
+    const user = (await User.findById({ _id }).select(
+      '-password'
+    )) as UserInterface;
     if (!user)
       return res
         .status(401)
         .send({ error: '401', message: 'Please login to view your map.' });
     req2.user = user;
     next();
-  } catch (error) {
+  } catch (error: any) {
     console.log(error);
     return res.status(401).send({ error: '401', message: 'Not authorized' });
   }

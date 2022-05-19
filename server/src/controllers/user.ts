@@ -2,13 +2,14 @@ import bcrypt from 'bcryptjs';
 import User from '../models/user';
 import jwt from 'jsonwebtoken';
 import { Request, Response } from 'express';
+import { UserInterface } from '../@types';
+
 const SECRET_KEY = process.env.JWT_SECRET_KEY || 'SECRET';
 
 //REGISTER USER
 export async function register(req: Request, res: Response) {
   try {
-    const { username, email, password } = req.body;
-    console.log(req.body);
+    const { username, email, password } = req.body as UserInterface;
 
     //validation
     if (!username || !email || !password) {
@@ -17,7 +18,7 @@ export async function register(req: Request, res: Response) {
         .json({ error: '400', message: 'Please include all fields' });
     }
     //if user exists
-    const existedUser = await User.findOne({ email });
+    const existedUser = (await User.findOne({ email })) as UserInterface;
     if (existedUser)
       return res
         .status(409)
@@ -28,10 +29,10 @@ export async function register(req: Request, res: Response) {
     const hash = await bcrypt.hash(password, salt);
 
     //create new user
-    const user = await User.create({
+    const user = (await User.create({
       ...req.body,
       password: hash,
-    });
+    })) as UserInterface;
 
     //if successfully created user
     if (user) {
@@ -44,7 +45,7 @@ export async function register(req: Request, res: Response) {
         .status(400)
         .json({ error: '400', message: 'Could not create user' });
     }
-  } catch (error) {
+  } catch (error: any) {
     console.log(error);
     return res.sendStatus(500);
   }
@@ -53,10 +54,10 @@ export async function register(req: Request, res: Response) {
 //LOGIN USER
 export async function login(req: Request, res: Response) {
   try {
-    const { email, password } = req.body;
+    const { email, password } = req.body as UserInterface;
 
     //if user exists and passwords match
-    const user = await User.findOne({ email });
+    const user = (await User.findOne({ email })) as UserInterface;
     if (user && (await bcrypt.compare(password, user.password))) {
       return res.status(201).send({
         token: jwt.sign({ _id: user._id }, SECRET_KEY, { expiresIn: '30d' }),
@@ -68,7 +69,7 @@ export async function login(req: Request, res: Response) {
         message: 'Invalid credentials',
       }); //unauthorized
     }
-  } catch (error) {
+  } catch (error: any) {
     console.log(error);
     return res.sendStatus(500);
   }

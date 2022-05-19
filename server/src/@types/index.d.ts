@@ -10,7 +10,7 @@ export interface UserInterface {
 }
 
 //pin
-interface PinInterface {
+export interface PinInterface {
   place_id: string;
   place_name: string;
   lat: number;
