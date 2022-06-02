@@ -4,9 +4,10 @@
   "description": "server for travker app",
   "main": "src/index.ts",
   "scripts": {
-    "start": "nodemon src/index.ts",
+    "start": "nodemon -w dist -q dist/index.js", 
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc"
+    "build": "tsc -w",
+    "dev": "concurrently -n COMPILER,NODEMON -c yellow,blue \"npm run build\" \"npm run start\""
   },
   "author": "wei lin",
   "license": "ISC",
@@ -30,6 +31,7 @@
     "@types/express": "^4.17.13",
     "@types/jsonwebtoken": "^8.5.8",
     "@types/node": "^17.0.33",
+    "concurrently": "^7.2.0",
     "eslint": "^8.14.0",
     "nodemon": "^2.0.15",
     "ts-node": "^10.7.0",
